@@ -57,7 +57,7 @@ svg {
 .page {
   position: relative;
   width: 100%;
-  height: calc(941 * var(--s));
+  height: calc(860 * var(--s));
   overflow: hidden;
   background: #fff;
 }
@@ -233,58 +233,21 @@ h1 em {
   margin-top: calc(34 * var(--s));
 }
 
-/* ---------------- feature strip ---------------- */
-
-.strip {
-  position: absolute;
-  left: calc(68 * var(--s));
-  right: calc(56 * var(--s));
-  bottom: calc(75 * var(--s));
-  z-index: 4;
-  display: grid;
-  /* column 1 carries the longest label, so it gets extra room */
-  grid-template-columns: 1.42fr 1fr 1fr 1.12fr 1.05fr 1.12fr;
-}
-
-.strip-item {
-  display: flex;
-  align-items: center;
-  gap: calc(16 * var(--s));
-  padding: 0 calc(20 * var(--s));
-  border-right: calc(1 * var(--s)) solid #c6d6ea;
-}
-
-.strip-item:first-child { padding-left: 0; }
-.strip-item:last-child { border-right: 0; }
+/* ---------------- icon badge (used by the feature cards) ---------------- */
 
 .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: calc(48 * var(--s));
-  height: calc(48 * var(--s));
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--badge-bg);
   color: var(--blue);
   flex: none;
 }
 
-.badge svg {
-  width: calc(23 * var(--s));
-  height: calc(23 * var(--s));
-}
-
-.strip h2 {
-  margin: 0;
-  font-size: calc(12.5 * var(--s));
-  font-weight: 700;
-  line-height: 1.38;
-  letter-spacing: calc(0.5 * var(--s));
-  text-transform: uppercase;
-  color: #1b222c;
-}
-
-.strip h2 i { font-style: normal; }
+.badge svg { width: 23px; height: 23px; }
 
 /* ============================================================
    Tablet / mobile — stacked layout
@@ -308,7 +271,6 @@ h1 em {
   .header   { order: 1; }
   .hero     { order: 2; }
   .hero-art { order: 3; }
-  .strip    { order: 4; }
 
   .header {
     position: sticky;
@@ -383,30 +345,8 @@ h1 em {
     width: 23%;
   }
 
-  .strip {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    margin-top: 8px;
-    padding: 0 20px;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px 12px;
-  }
-
-  .strip-item {
-    padding: 0;
-    border-right: 0;
-    gap: 12px;
-  }
-
   .badge { width: 42px; height: 42px; }
   .badge svg { width: 20px; height: 20px; }
-
-  .strip h2 {
-    font-size: 11px;
-    letter-spacing: .4px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -429,13 +369,6 @@ h1 em {
   h1 { font-size: clamp(32px, 9.8vw, 44px); }
 
   .lede { font-size: 15px; margin-top: 16px; }
-
-  .strip { padding: 0 16px; gap: 18px 10px; }
-}
-
-/* below this the two-up feature grid gets too cramped to read */
-@media (max-width: 379px) {
-  .strip { grid-template-columns: 1fr; }
 }
 
 /* narrowest phones: the rule pushes the eyebrow onto a second line */
@@ -479,8 +412,49 @@ h1 em {
 /* ---------------- 02 · introduction ---------------- */
 
 .intro {
-  padding: clamp(64px, 8vw, 128px) 0 clamp(48px, 6vw, 96px);
-  background: #fff;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(68px, 8.5vw, 136px) 0 clamp(68px, 8vw, 124px);
+  background: linear-gradient(180deg, #fff 0%, #fbfdff 62%, #f4f9fe 100%);
+}
+
+/* soft blue bloom behind the heading */
+.intro-glow {
+  position: absolute;
+  top: -22%;
+  right: -10%;
+  width: min(760px, 62vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(11, 79, 162, .13) 0%, rgba(11, 79, 162, 0) 68%);
+  pointer-events: none;
+}
+
+/* oversized brand mark, barely there */
+.intro-mark {
+  position: absolute;
+  right: clamp(-60px, -3vw, -20px);
+  bottom: clamp(-40px, -2vw, -10px);
+  width: min(360px, 30vw);
+  opacity: .05;
+  pointer-events: none;
+}
+
+.intro .shell { position: relative; }
+
+/* small rule that leads into the eyebrow */
+.section-eyebrow .dash {
+  display: inline-block;
+  width: clamp(18px, 2vw, 34px);
+  height: 2px;
+  margin-right: 12px;
+  vertical-align: middle;
+  background: var(--blue);
+}
+
+.intro .section-title em {
+  font-style: normal;
+  color: var(--blue);
 }
 
 .intro-grid {
@@ -491,7 +465,9 @@ h1 em {
 }
 
 .intro-body {
-  padding-top: clamp(6px, 1.2vw, 18px);
+  padding-top: clamp(8px, 1.4vw, 20px);
+  padding-left: clamp(18px, 1.8vw, 30px);
+  border-left: 2px solid #cfe0f5;
 }
 
 .intro-body p {
@@ -505,19 +481,54 @@ h1 em {
 .claims {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(20px, 3vw, 56px);
-  margin-top: clamp(44px, 5.5vw, 88px);
+  gap: clamp(16px, 1.8vw, 28px);
+  margin-top: clamp(44px, 5.5vw, 86px);
 }
 
 .claim {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 1.6vw, 26px);
   margin: 0;
-  padding-top: clamp(16px, 1.6vw, 26px);
-  border-top: 2px solid var(--blue);
+  padding: clamp(22px, 2.2vw, 34px);
+  border: 1px solid #dbe6f5;
+  border-radius: clamp(14px, 1.2vw, 20px);
+  background: #fff;
+  transition: background-color .25s ease, border-color .25s ease,
+              transform .25s ease, box-shadow .25s ease;
+}
+
+.claim:hover {
+  background: #e8f1fd;
+  border-color: #b9d2f0;
+  transform: translateY(-4px);
+  box-shadow: 0 18px 38px rgba(11, 79, 162, .13);
+}
+
+.claim-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(48px, 3.6vw, 62px);
+  height: clamp(48px, 3.6vw, 62px);
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  flex: none;
+}
+
+.claim-icon svg {
+  width: clamp(22px, 1.7vw, 28px);
+  height: clamp(22px, 1.7vw, 28px);
+}
+
+.claim h3 {
+  margin: 0;
   font-family: "Archivo", sans-serif;
   font-weight: 700;
-  font-size: clamp(18px, 2vw, 32px);
-  line-height: 1.2;
-  letter-spacing: -.4px;
+  font-size: clamp(16px, 1.55vw, 25px);
+  line-height: 1.22;
+  letter-spacing: -.3px;
   text-transform: uppercase;
   color: #11161d;
 }
@@ -622,6 +633,7 @@ h1 em {
 @media (max-width: 1024px) {
   .intro-grid { grid-template-columns: 1fr; }
   .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .intro-mark { width: 220px; opacity: .04; }
 }
 
 @media (max-width: 680px) {
@@ -635,8 +647,8 @@ h1 em {
 
 @media (prefers-reduced-motion: reduce) {
   .js-reveal [data-reveal] { transition: none; opacity: 1; transform: none; }
-  .fcard { transition: background-color .2s ease; }
-  .fcard:hover { transform: none; box-shadow: none; }
+  .fcard, .claim { transition: background-color .2s ease; }
+  .fcard:hover, .claim:hover { transform: none; box-shadow: none; }
 }
 
 /* ============================================================
