@@ -268,9 +268,10 @@ h1 em {
 
   .bg-curves { display: none; }
 
+  /* on narrow screens the artwork leads, then the copy and the button */
   .header   { order: 1; }
-  .hero     { order: 2; }
-  .hero-art { order: 3; }
+  .hero-art { order: 2; }
+  .hero     { order: 3; }
 
   .header {
     position: sticky;
@@ -288,7 +289,7 @@ h1 em {
 
   .hero {
     max-width: none;
-    padding: 40px 20px 0;
+    padding: 30px 20px 0;   /* sits under the artwork now, not above it */
   }
 
   .eyebrow {
@@ -330,7 +331,7 @@ h1 em {
     position: relative;
     width: 100%;
     max-width: 620px;
-    margin: 28px auto 0;
+    margin: 0 auto;   /* leads the section, so it sits under the header */
   }
 
   /* centred on mobile, so the one-sided fade would look lopsided */
@@ -898,11 +899,36 @@ h1 em {
   .why-grid { grid-template-columns: 1fr; gap: 0; }
   .why-item { padding-bottom: clamp(18px, 2vw, 26px); }
 
-  .site-footer .logo { margin-right: 0; width: 100%; }
+  /* footer stacks: lockup, full-width button, then the notice under a rule */
+  .site-footer .shell {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .site-footer .logo {
+    margin-right: 0;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .footer-btn { width: 100%; }
+
+  .footer-note {
+    padding-top: 18px;
+    text-align: center;
+  }
 }
 
 @media (max-width: 420px) {
   .shell { padding: 0 16px; }
+
+  /* the footer lockup is nowrap and larger than the header's, so it is the
+     first thing to get clipped on a 320px screen */
+  .site-footer .logo { font-size: 16px; gap: 8px; }
+  .site-footer .logo img { width: 30px; height: 30px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
