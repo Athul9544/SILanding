@@ -1118,6 +1118,40 @@ h1 em {
   .flow-arrow svg { transform: rotate(90deg); }
 }
 
+/* image beside the points, so portrait and landscape shots both sit well
+   without being cropped to a common aspect */
+.cap-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 56px);
+  align-items: start;
+  margin-top: clamp(32px, 3.6vw, 56px);
+}
+
+.cap-shot { margin: 0; }
+
+.cap-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* keeps a portrait shot from towering over the points beside it; the
+     landscape one is shorter than this and is never cropped */
+  max-height: clamp(300px, 40vw, 560px);
+  object-fit: cover;
+  border: 1px solid #dbe6f5;
+  border-radius: clamp(14px, 1.2vw, 20px);
+  background: #fff;
+}
+
+.cap-points.is-stacked {
+  grid-template-columns: 1fr;
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .cap-split { grid-template-columns: 1fr; }
+}
+
 .cap-points {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
