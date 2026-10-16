@@ -1,3 +1,73 @@
+/* Reveal elements as they scroll into view, cascading within a group. */
+(function () {
+  'use strict';
+
+  var items = document.querySelectorAll('[data-reveal]');
+  if (!items.length) return;
+
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Without IntersectionObserver (or with motion reduced) just show everything
+  // rather than leaving the sections blank.
+  if (reduced || !('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(items, function (el) { el.classList.add('in'); });
+    return;
+  }
+
+  var pending = Array.prototype.slice.call(items);
+
+  // idempotent, so the observer and the scroll sweep can both call it
+  function reveal(el, order) {
+    if (el.classList.contains('in')) return;
+    el.style.transitionDelay = (order * 90) + 'ms';
+    el.classList.add('in');
+    var i = pending.indexOf(el);
+    if (i !== -1) pending.splice(i, 1);
+  }
+
+  function inView(el) {
+    var r = el.getBoundingClientRect();
+    return r.top < (window.innerHeight || 0) * 0.92 && r.bottom > 0;
+  }
+
+  // Backstop: reveals anything on screen. Runs on scroll and once after load,
+  // so the sections still appear even if the observer never delivers.
+  var ticking = false;
+  function sweep() {
+    ticking = false;
+    pending.slice().filter(inView).forEach(function (el, i) { reveal(el, i); });
+    if (!pending.length) {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(sweep);
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    // entries can arrive out of order; sort so the stagger follows the layout
+    entries
+      .filter(function (e) { return e.isIntersecting; })
+      .sort(function (a, b) {
+        return a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top;
+      })
+      .forEach(function (entry, i) {
+        reveal(entry.target, i);
+        observer.unobserve(entry.target);   // reveal once, then stop watching
+      });
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+  Array.prototype.forEach.call(items, function (el) { observer.observe(el); });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', sweep);
+  setTimeout(sweep, 1200);
+})();
+
 /* Enquiry modal: opened by the Get Started button. */
 (function () {
   'use strict';

@@ -9,6 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+<!-- Only hide reveal targets if scripting is actually running, so a JS
+     failure can never leave the sections blank. Inline and before the
+     stylesheet is applied, to avoid a flash of visible content. -->
+<script>document.documentElement.className += ' js-reveal';</script>
 </head>
 <body>
 
@@ -116,6 +120,106 @@
     </section>
 
   </div>
+
+  <!-- ===================== 02 · introduction ===================== -->
+  <section class="intro" id="about">
+    <div class="shell">
+      <p class="section-eyebrow" data-reveal>01 / About the Intelligence</p>
+
+      <div class="intro-grid">
+        <h2 class="section-title" data-reveal>A more intelligent way to design.</h2>
+
+        <div class="intro-body" data-reveal>
+          <p>
+            SketchUp Intelligence enhances SketchUp with advanced capabilities and powerful
+            geometric modeling skills. It is more than a connector: it helps designers take on
+            intricate shapes, custom furniture, and entire spaces.
+          </p>
+        </div>
+      </div>
+
+      <div class="claims">
+        <p class="claim" data-reveal>Create complex models in a go.</p>
+        <p class="claim" data-reveal>More time for creative thinking.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 03 · capabilities ===================== -->
+  <section class="features" id="capabilities">
+    <div class="shell">
+      <p class="section-eyebrow" data-reveal>02 / Capabilities</p>
+      <h2 class="section-title" data-reveal>What can it create?</h2>
+
+      <div class="fgrid">
+        <article class="fcard" data-reveal>
+          <span class="fcard-head">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5" /><path d="M5.5 9.5V20h13V9.5" /><path d="M10 20v-5.5h4V20" /></svg>
+            </span>
+            <span class="fcard-num">01</span>
+          </span>
+          <h3>Floor Plan + Mood Board <i>&rarr;</i> 3D Model</h3>
+          <p>Transform CAD floor plans and creative references into detailed, furnished SketchUp spaces.</p>
+        </article>
+
+        <article class="fcard" data-reveal>
+          <span class="fcard-head">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 20.5 7.4v9.2L12 21.2 3.5 16.6V7.4z" /><path d="M3.5 7.4 12 12l8.5-4.6M12 12v9.2" /></svg>
+            </span>
+            <span class="fcard-num">02</span>
+          </span>
+          <h3>Complex Geometry</h3>
+          <p>Build intricate shapes, sophisticated forms, and detailed geometric patterns.</p>
+        </article>
+
+        <article class="fcard" data-reveal>
+          <span class="fcard-head">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11V7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5V11" /><path d="M4 11h16v6H4z" /><path d="M6.5 17v2M17.5 17v2" /></svg>
+            </span>
+            <span class="fcard-num">03</span>
+          </span>
+          <h3>Custom Furniture</h3>
+          <p>Create bespoke furniture, cabinetry, and unique interior design components.</p>
+        </article>
+
+        <article class="fcard" data-reveal>
+          <span class="fcard-head">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="M15.8 15.8 21 21" /></svg>
+            </span>
+            <span class="fcard-num">04</span>
+          </span>
+          <h3>Intelligent Model Review</h3>
+          <p>Analyze 3D models to identify potential inconsistencies and design improvements.</p>
+        </article>
+
+        <article class="fcard" data-reveal>
+          <span class="fcard-head">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 2.5 4.5 13.5h6l-1 8 9-11h-6z" fill="currentColor" stroke="none" /></svg>
+            </span>
+            <span class="fcard-num">05</span>
+          </span>
+          <h3>Productivity First</h3>
+          <p>Reduce repetitive modeling tasks and spend more time on creative thinking.</p>
+        </article>
+
+        <article class="fcard" data-reveal>
+          <span class="fcard-head">
+            <span class="badge">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8.5h3.5L8.5 6h7l2 2.5H21V19H3z" /><circle cx="12" cy="13" r="3.2" /></svg>
+            </span>
+            <span class="fcard-num">06</span>
+          </span>
+          <h3>Automatic View Setting</h3>
+          <p>Simplify the setup of model views for a more efficient design presentation workflow.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- ===================== enquiry modal ===================== -->
   <div class="modal" id="contact-modal" hidden>
