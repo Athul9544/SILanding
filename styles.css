@@ -1010,6 +1010,10 @@ h1 em {
 
 .cap-body { padding: clamp(48px, 6vw, 96px) 0 clamp(16px, 2vw, 32px); }
 
+/* pages without an intro paragraph start straight on the grid, and the
+   section padding is already enough space under the hero */
+.cap-body .shell > :first-child { margin-top: 0; }
+
 .cap-para {
   margin: 0;
   max-width: 68ch;

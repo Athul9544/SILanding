@@ -72,15 +72,14 @@ under `capabilities/`. Those pages are plain static HTML — there is no build
 step — but they were generated from a single template so they stay consistent.
 If you change the shared layout, change it in every file, or regenerate them.
 
-## Deployments are paused
+## Deployments
 
-`vercel.json` sets `git.deploymentEnabled: false`, so pushing to this repo will
-**not** trigger a Vercel deployment. To turn deployments back on, delete that
-file (or set the flag to `true`) and push.
+`vercel.json` sets `git.deploymentEnabled: true`, so pushing to `main` triggers
+a Vercel deployment. Set it to `false` to pause them again.
 
 Note that the dashboard is the authoritative control: if a project has branch
-tracking disabled, Vercel may ignore `vercel.json` entirely. To be certain, also
-disconnect the Git integration under Project → Settings → Git.
+tracking disabled, Vercel may ignore `vercel.json` entirely. Project → Settings
+→ Git is the place to check if a push does not deploy as expected.
 
 ## Notes
 
