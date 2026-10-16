@@ -1018,6 +1018,74 @@ h1 em {
   color: var(--ink-soft);
 }
 
+/* input + input -> output, shown with the real artefacts */
+.flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(14px, 1.8vw, 30px);
+  margin-top: clamp(32px, 3.6vw, 56px);
+}
+
+.flow-item { margin: 0; text-align: center; }
+
+.flow-item img {
+  display: block;
+  height: clamp(200px, 27vw, 380px);
+  width: auto;
+  max-width: 100%;
+  border: 1px solid #dbe6f5;
+  border-radius: clamp(10px, 1vw, 16px);
+  background: #fff;
+  object-fit: cover;
+}
+
+/* the result carries a little more weight than the inputs */
+.flow-item.is-output img {
+  border-color: #b9d2f0;
+  box-shadow: 0 18px 40px rgba(11, 79, 162, .18);
+}
+
+.flow-item figcaption {
+  margin-top: 12px;
+  font-size: clamp(11px, .95vw, 13px);
+  font-weight: 700;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+  color: #5c6672;
+}
+
+.flow-item.is-output figcaption { color: var(--blue); }
+
+.flow-op {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 26px;           /* optically centres against the captions */
+  font-family: "Archivo", sans-serif;
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 700;
+  color: #9db9dc;
+  flex: none;
+}
+
+.flow-arrow { color: var(--blue); }
+
+.flow-arrow svg {
+  width: clamp(26px, 2.6vw, 42px);
+  height: clamp(26px, 2.6vw, 42px);
+  stroke-width: 2;
+}
+
+@media (max-width: 760px) {
+  /* stack the flow and turn the operators to point downwards */
+  .flow { flex-direction: column; }
+  .flow-item img { height: auto; width: 100%; max-width: 420px; }
+  .flow-op { margin-bottom: 0; }
+  .flow-arrow svg { transform: rotate(90deg); }
+}
+
 .cap-points {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
