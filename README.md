@@ -20,7 +20,9 @@ python -m http.server 8000
 | --- | --- |
 | `index.html` | Full page markup plus the enquiry modal |
 | `styles.css` | All styling, including the responsive and modal rules |
-| `app.js` | Enquiry modal behaviour (the only script on the page) |
+| `app.js` | Scroll reveal and enquiry modal behaviour |
+| `capabilities/*.html` | One detail page per capability, linked from the cards |
+| `vercel.json` | Git deployments turned **off** (see below) |
 | `assets/logo.png` | Brand mark, transparent |
 | `assets/interior.jpg` | Hero artwork |
 | `assets/einstein.png` | Mascot, cut out with an alpha channel |
@@ -62,6 +64,23 @@ To connect a backend, POST the payload in the submit handler in `app.js`:
 var payload = Object.fromEntries(new FormData(form).entries());
 // fetch('/api/enquiries', { method: 'POST', body: JSON.stringify(payload) })
 ```
+
+## Capability pages
+
+Each card in the capabilities grid has an arrow button linking to its own page
+under `capabilities/`. Those pages are plain static HTML — there is no build
+step — but they were generated from a single template so they stay consistent.
+If you change the shared layout, change it in every file, or regenerate them.
+
+## Deployments are paused
+
+`vercel.json` sets `git.deploymentEnabled: false`, so pushing to this repo will
+**not** trigger a Vercel deployment. To turn deployments back on, delete that
+file (or set the flag to `true`) and push.
+
+Note that the dashboard is the authoritative control: if a project has branch
+tracking disabled, Vercel may ignore `vercel.json` entirely. To be certain, also
+disconnect the Git integration under Project → Settings → Git.
 
 ## Notes
 

@@ -548,6 +548,8 @@ h1 em {
 }
 
 .fcard {
+  display: flex;
+  flex-direction: column;
   padding: clamp(24px, 2.2vw, 38px);
   border: 1px solid #dbe6f5;
   border-radius: clamp(14px, 1.2vw, 20px);
@@ -555,6 +557,36 @@ h1 em {
   transition: background-color .25s ease, border-color .25s ease,
               transform .25s ease, box-shadow .25s ease;
 }
+
+/* pushes the arrow to the bottom so buttons line up across a row */
+.fcard p { flex: 1; }
+
+.fcard-go {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-top: clamp(18px, 1.6vw, 26px);
+  border: 1.5px solid #cfe0f5;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--blue);
+  transition: background-color .25s ease, border-color .25s ease,
+              color .25s ease, transform .25s ease;
+}
+
+.fcard-go svg { width: 19px; height: 19px; stroke-width: 2; }
+
+.fcard:hover .fcard-go,
+.fcard-go:hover {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.fcard:hover .fcard-go { transform: translateX(4px); }
 
 .fcard:hover {
   background: #e8f1fd;
@@ -649,6 +681,259 @@ h1 em {
   .js-reveal [data-reveal] { transition: none; opacity: 1; transform: none; }
   .fcard, .claim { transition: background-color .2s ease; }
   .fcard:hover, .claim:hover { transform: none; box-shadow: none; }
+}
+
+/* ============================================================
+   Capability detail pages (capabilities/*.html)
+   ============================================================ */
+
+.subpage { background: #fff; }
+
+.sub-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px clamp(20px, 4.07vw, 68px);
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid #eaf0f8;
+}
+
+/* the home page sizes the logo from --s; here it is a fixed size */
+.subpage .logo { font-size: 20px; gap: 10px; min-height: 44px; }
+.subpage .logo img { width: 38px; height: 38px; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--blue);
+  white-space: nowrap;
+}
+
+.back-link svg { width: 17px; height: 17px; stroke-width: 2; }
+.back-link:hover { color: var(--blue-deep); }
+
+.cap-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(44px, 5.5vw, 88px) 0 clamp(40px, 5vw, 76px);
+  background: linear-gradient(180deg, #f5f9fe 0%, #eaf2fc 100%);
+}
+
+.cap-watermark {
+  position: absolute;
+  top: 50%;
+  right: clamp(8px, 2vw, 56px);
+  transform: translateY(-50%);
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(90px, 14vw, 220px);
+  line-height: 1;
+  color: #fff;
+  opacity: .6;
+  pointer-events: none;
+}
+
+.cap-hero .shell { position: relative; }
+
+.cap-head {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 1.8vw, 28px);
+  margin-top: clamp(14px, 1.6vw, 24px);
+}
+
+.cap-badge {
+  width: clamp(54px, 4.4vw, 76px);
+  height: clamp(54px, 4.4vw, 76px);
+  background: var(--blue);
+  color: #fff;
+}
+
+.cap-badge svg {
+  width: clamp(25px, 2.1vw, 34px);
+  height: clamp(25px, 2.1vw, 34px);
+}
+
+/* smaller than the home-page section titles, and wrapped before it can
+   run into the watermark numeral */
+.cap-head .section-title {
+  margin: 0;
+  max-width: 20ch;
+  font-size: clamp(26px, 3.2vw, 50px);
+}
+.cap-head .section-title i { font-style: normal; color: var(--blue); }
+
+.cap-lead {
+  margin: clamp(18px, 2vw, 28px) 0 0;
+  max-width: 62ch;
+  font-size: clamp(16px, 1.3vw, 22px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.cap-body { padding: clamp(48px, 6vw, 96px) 0 clamp(16px, 2vw, 32px); }
+
+.cap-para {
+  margin: 0;
+  max-width: 68ch;
+  font-size: clamp(15px, 1.12vw, 19px);
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.cap-points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 1.6vw, 28px);
+  margin-top: clamp(32px, 3.6vw, 56px);
+}
+
+.cap-point {
+  padding: clamp(22px, 2vw, 32px);
+  border: 1px solid #dbe6f5;
+  border-radius: clamp(14px, 1.2vw, 20px);
+  background: #fff;
+  transition: background-color .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.cap-point:hover {
+  background: #e8f1fd;
+  border-color: #b9d2f0;
+  transform: translateY(-3px);
+}
+
+.cap-point h2 {
+  margin: 0;
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: clamp(15px, 1.15vw, 18px);
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  color: #11161d;
+}
+
+.cap-point p {
+  margin: 10px 0 0;
+  font-size: clamp(14px, 1.02vw, 16px);
+  line-height: 1.6;
+  color: #5c6672;
+}
+
+.cap-cta {
+  padding: clamp(56px, 7vw, 110px) 0;
+  text-align: center;
+}
+
+.cap-cta h2 {
+  margin: 0;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(24px, 2.8vw, 42px);
+  line-height: 1.12;
+  letter-spacing: -.6px;
+  text-transform: uppercase;
+  color: #0c0f13;
+}
+
+.cap-cta p {
+  margin: 14px auto 0;
+  max-width: 48ch;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.6;
+  color: #5c6672;
+}
+
+/* the home-page .btn sizes from --s; override for these pages */
+.cap-cta-btn {
+  height: 56px;
+  margin-top: clamp(24px, 2.4vw, 36px);
+  padding: 0 34px;
+  font-size: 16px;
+  gap: 12px;
+}
+
+.cap-cta-btn svg { width: 19px; height: 19px; }
+
+.cap-nav {
+  border-top: 1px solid #e7eef8;
+  background: #f7fafe;
+}
+
+.cap-nav .shell {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+.cap-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #28313d;
+  transition: color .2s ease;
+}
+
+.cap-nav-link:hover { color: var(--blue); }
+.cap-nav-link svg { width: 18px; height: 18px; stroke-width: 2; flex: none; color: var(--blue); }
+.cap-nav-link.next { text-align: right; }
+
+.cap-nav-link em {
+  display: block;
+  font-style: normal;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8e98a5;
+}
+
+@media (max-width: 1024px) {
+  .cap-points { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 680px) {
+  .cap-points { grid-template-columns: 1fr; }
+  .cap-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .cap-nav .shell { flex-direction: column; }
+  .cap-nav-link.next { flex-direction: row-reverse; text-align: left; }
+
+  /* the logo and this label are both nowrap, so together they set the
+     header's minimum width - drop the label to its icon (aria-label carries
+     the meaning) before it can force the page sideways */
+  .back-link span { display: none; }
+  .back-link { padding-left: 4px; }
+}
+
+@media (max-width: 560px) {
+  .sub-header { padding: 12px 16px; }
+  .subpage .logo { font-size: 16px; gap: 8px; }
+  .subpage .logo img { width: 32px; height: 32px; }
+}
+
+/* narrowest phones: keep the mark, drop the wordmark */
+@media (max-width: 400px) {
+  .subpage .logo-text { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cap-point, .fcard-go { transition: none; }
+  .cap-point:hover { transform: none; }
+  .fcard:hover .fcard-go { transform: none; }
 }
 
 /* ============================================================
