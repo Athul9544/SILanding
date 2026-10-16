@@ -26,6 +26,14 @@
 
 html, body { margin: 0; padding: 0; }
 
+html {
+  /* stop iOS inflating body text when a phone is rotated */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+img { max-width: 100%; }
+
 body {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   color: var(--ink);
@@ -312,7 +320,8 @@ h1 em {
     border-bottom: 1px solid #edf2f8;
   }
 
-  .logo { font-size: 20px; gap: 10px; }
+  /* min-height only grows the hit area; the header centres it, so nothing moves */
+  .logo { font-size: 20px; gap: 10px; min-height: 44px; }
   .logo img { width: 40px; height: 40px; }
 
   .hero {
@@ -401,8 +410,37 @@ h1 em {
 }
 
 @media (max-width: 480px) {
-  .strip { grid-template-columns: 1fr; }
   .cta-row .btn { width: 100%; }
+}
+
+/* small phones: the logo lockup is nowrap, so it sets the minimum width
+   the header can take — scale it down rather than let it overflow */
+@media (max-width: 420px) {
+  .header { padding: 0 16px; }
+
+  .logo { font-size: 16px; gap: 8px; }
+  .logo img { width: 32px; height: 32px; }
+
+  .hero { padding: 32px 16px 0; }
+
+  .eyebrow { font-size: 11px; letter-spacing: 1.8px; gap: 10px; }
+  .eyebrow .rule { width: 38px; }
+
+  h1 { font-size: clamp(32px, 9.8vw, 44px); }
+
+  .lede { font-size: 15px; margin-top: 16px; }
+
+  .strip { padding: 0 16px; gap: 18px 10px; }
+}
+
+/* below this the two-up feature grid gets too cramped to read */
+@media (max-width: 379px) {
+  .strip { grid-template-columns: 1fr; }
+}
+
+/* narrowest phones: the rule pushes the eyebrow onto a second line */
+@media (max-width: 359px) {
+  .eyebrow .rule { display: none; }
 }
 
 /* ============================================================
@@ -631,6 +669,8 @@ h1 em {
   .modal-card { padding: 26px 20px 20px; border-radius: 20px; }
   .modal-card h2 { font-size: 24px; }
   .modal-close { top: 14px; right: 14px; }
+  /* the placeholder runs to three lines once the card is this narrow */
+  .field textarea { height: 96px; }
 }
 
 /* short windows: tighten further so the form still fits in one view */
