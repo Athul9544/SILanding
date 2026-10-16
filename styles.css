@@ -647,6 +647,207 @@ h1 em {
   color: #5c6672;
 }
 
+/* ---------------- 04 · why ---------------- */
+
+.why {
+  padding: clamp(64px, 8vw, 128px) 0 clamp(72px, 9vw, 136px);
+  background: #fff;
+}
+
+.why .section-title em { font-style: normal; color: var(--blue); }
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 42px);
+  margin-top: clamp(40px, 4.6vw, 72px);
+}
+
+/* editorial rather than boxed, so it reads differently to the
+   capability cards without leaving the design language */
+.why-item {
+  padding-top: clamp(18px, 1.8vw, 28px);
+  border-top: 2px solid #dde7f4;
+  transition: border-color .25s ease;
+}
+
+.why-item:hover { border-top-color: var(--blue); }
+
+.why-num {
+  display: block;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 2.6vw, 42px);
+  line-height: 1;
+  color: #c3d6ee;
+  transition: color .25s ease;
+}
+
+.why-item:hover .why-num { color: var(--blue); }
+
+.why-item h3 {
+  margin: clamp(16px, 1.6vw, 26px) 0 0;
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.3;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  color: #11161d;
+}
+
+.why-item p {
+  margin: clamp(9px, .9vw, 13px) 0 0;
+  font-size: clamp(14px, 1.02vw, 16px);
+  line-height: 1.6;
+  color: #5c6672;
+}
+
+/* ---------------- final CTA + footer ---------------- */
+
+.closing {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #072347 0%, #0a3c7d 55%, #0b4fa2 100%);
+  color: #fff;
+}
+
+.closing-glow {
+  position: absolute;
+  top: -40%;
+  left: 40%;
+  width: min(900px, 80vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120, 180, 255, .20) 0%, rgba(120, 180, 255, 0) 68%);
+  pointer-events: none;
+}
+
+.closing-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(24px, 3vw, 64px);
+  align-items: end;
+  padding-top: clamp(64px, 7.5vw, 120px);
+}
+
+.closing-copy { padding-bottom: clamp(32px, 4vw, 64px); }
+
+.closing h2 {
+  margin: 0;
+  max-width: 20ch;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.6vw, 58px);
+  line-height: 1.08;
+  letter-spacing: clamp(-1.2px, -.1vw, -.5px);
+  text-transform: uppercase;
+}
+
+.closing h2 em {
+  display: block;
+  font-style: normal;
+  color: #8fc0f7;
+}
+
+.closing-copy p {
+  margin: clamp(18px, 2vw, 28px) 0 0;
+  max-width: 46ch;
+  font-size: clamp(15px, 1.2vw, 20px);
+  line-height: 1.6;
+  color: #c2d8f2;
+}
+
+.closing-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 58px;
+  margin-top: clamp(26px, 2.8vw, 40px);
+  padding: 0 36px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  font-size: 16px;
+  font-weight: 700;
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+.closing-btn:hover {
+  background: #eaf2fd;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, .26);
+}
+
+.closing-btn svg { width: 19px; height: 19px; stroke-width: 2; }
+
+.closing-mascot {
+  display: block;
+  width: clamp(170px, 19vw, 300px);
+  align-self: end;
+  filter: drop-shadow(0 22px 40px rgba(0, 0, 0, .35));
+}
+
+.site-footer {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, .16);
+}
+
+.site-footer .shell {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px clamp(20px, 3vw, 48px);
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+/* the mark is a solid blue PNG; invert it to sit on the dark panel */
+.site-footer .logo {
+  font-size: 19px;
+  gap: 10px;
+  min-height: 44px;
+  color: #fff;
+  margin-right: auto;
+}
+
+.site-footer .logo img {
+  width: 34px;
+  height: 34px;
+  filter: brightness(0) invert(1);
+}
+
+.site-footer .logo-text span { color: #8fc0f7; }
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px clamp(16px, 2vw, 32px);
+}
+
+.footer-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #c2d8f2;
+  transition: color .2s ease;
+}
+
+.footer-nav a:hover { color: #fff; }
+
+.footer-note {
+  margin: 0;
+  width: 100%;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  font-size: 13px;
+  color: #93b3dc;
+}
+
 /* ---------------- scroll reveal ---------------- */
 
 /* Scoped to .js-reveal, which an inline script sets. Without JS the
@@ -665,12 +866,30 @@ h1 em {
 @media (max-width: 1024px) {
   .intro-grid { grid-template-columns: 1fr; }
   .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intro-mark { width: 220px; opacity: .04; }
+}
+
+@media (max-width: 860px) {
+  /* mascot would squeeze the headline below this, so he steps aside */
+  .closing-grid { grid-template-columns: 1fr; }
+  .closing-mascot {
+    justify-self: end;
+    width: clamp(150px, 34vw, 230px);
+    margin-top: -20px;
+  }
+  .closing-copy { padding-bottom: 0; }
+  .closing h2 { max-width: none; }
 }
 
 @media (max-width: 680px) {
   .fgrid { grid-template-columns: 1fr; }
   .claims { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; gap: 0; }
+  .why-item { padding-bottom: clamp(18px, 2vw, 26px); }
+
+  .site-footer .logo { margin-right: 0; width: 100%; }
+  .footer-nav { width: 100%; }
 }
 
 @media (max-width: 420px) {
@@ -681,6 +900,7 @@ h1 em {
   .js-reveal [data-reveal] { transition: none; opacity: 1; transform: none; }
   .fcard, .claim { transition: background-color .2s ease; }
   .fcard:hover, .claim:hover { transform: none; box-shadow: none; }
+  .closing-btn:hover { transform: none; }
 }
 
 /* ============================================================
