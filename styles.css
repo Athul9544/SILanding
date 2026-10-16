@@ -783,9 +783,11 @@ h1 em {
 
 .closing-btn svg { width: 19px; height: 19px; stroke-width: 2; }
 
+/* wider than the hero mascot because this artwork includes the lightbulb
+   above his hand, so the figure itself sits smaller in the frame */
 .closing-mascot {
   display: block;
-  width: clamp(170px, 19vw, 300px);
+  width: clamp(200px, 23vw, 360px);
   align-self: end;
   filter: drop-shadow(0 22px 40px rgba(0, 0, 0, .35));
 }
@@ -883,7 +885,7 @@ h1 em {
   .closing-grid { grid-template-columns: 1fr; }
   .closing-mascot {
     justify-self: end;
-    width: clamp(150px, 34vw, 230px);
+    width: clamp(180px, 40vw, 280px);
     margin-top: -20px;
   }
   .closing-copy { padding-bottom: 0; }
