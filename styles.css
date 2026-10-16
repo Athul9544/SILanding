@@ -1,0 +1,656 @@
+/* ============================================================
+   SketchUp Intelligence — landing page
+   Reference composition: 1672 x 941.
+   `--s` is a scaling unit: every measurement is authored in
+   reference pixels as calc(N * var(--s)), so the layout is
+   pixel-exact at 1672px and scales proportionally below it.
+   ============================================================ */
+
+:root {
+  --s: 1px;
+
+  --blue: #0b4fa2;
+  --blue-deep: #0a4890;
+  --blue-soft: #1a5fb4;
+  --badge-bg: #e3eefb;
+  --ink: #101418;
+  --ink-soft: #2b3038;
+  --line: #d9e3f0;
+}
+
+@media (max-width: 1680px) {
+  :root { --s: calc(100vw / 1672); }
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { text-decoration: none; color: inherit; }
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------------- page shell ---------------- */
+
+.page {
+  position: relative;
+  width: 100%;
+  height: calc(941 * var(--s));
+  overflow: hidden;
+  background: #fff;
+}
+
+.bg-curves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.bg-curves path { stroke: none; }
+
+.hero-art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(937 * var(--s));
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* the artwork keeps the original 937x795 slot; the portrait source is
+   cropped to fill it, biased downward so the window and seating both read */
+.hero-art .backdrop {
+  display: block;
+  width: 100%;
+  aspect-ratio: 937 / 795;
+  object-fit: cover;
+  object-position: center 62%;
+  /* soft fade into the white page, as the previous artwork had */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 calc(90 * var(--s)));
+  mask-image: linear-gradient(to right, transparent 0, #000 calc(90 * var(--s)));
+}
+
+/* the mascot stands just outside the artwork, against its left edge,
+   sharing the same ground line */
+.hero-art .mascot {
+  position: absolute;
+  left: -17.83%;   /* 167 / 937 — his full width, so he clears the image */
+  bottom: 0;
+  width: 17.83%;
+  height: auto;
+}
+
+/* ---------------- header ---------------- */
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  height: calc(128 * var(--s));
+  padding: 0 calc(68 * var(--s));
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: calc(14 * var(--s));
+  margin-right: auto;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: calc(29 * var(--s));
+  letter-spacing: calc(-0.2 * var(--s));
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.logo img {
+  width: calc(58 * var(--s));
+  height: calc(58 * var(--s));
+  object-fit: contain;
+  flex: none;
+}
+
+.logo-text span { color: var(--blue); }
+
+/* ---------------- buttons ---------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(14 * var(--s));
+  height: calc(62 * var(--s));
+  padding: 0 calc(44 * var(--s));
+  border-radius: 999px;
+  font-size: calc(17 * var(--s));
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+
+.btn svg {
+  width: calc(20 * var(--s));
+  height: calc(20 * var(--s));
+  stroke-width: 2;
+  flex: none;
+}
+
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 calc(10 * var(--s)) calc(26 * var(--s)) rgba(11, 79, 162, .26);
+}
+
+.btn-primary:hover {
+  background: var(--blue-deep);
+  transform: translateY(calc(-2 * var(--s)));
+  box-shadow: 0 calc(14 * var(--s)) calc(32 * var(--s)) rgba(11, 79, 162, .34);
+}
+
+/* ---------------- hero copy ---------------- */
+
+.hero {
+  position: relative;
+  z-index: 3;
+  padding: calc(176 * var(--s)) 0 0 calc(68 * var(--s));
+  max-width: calc(760 * var(--s));
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: calc(22 * var(--s));
+  margin: 0;
+  font-size: calc(14.5 * var(--s));
+  font-weight: 700;
+  letter-spacing: calc(3.4 * var(--s));
+  text-transform: uppercase;
+  color: var(--blue-soft);
+}
+
+.eyebrow .rule {
+  width: calc(104 * var(--s));
+  height: calc(1.6 * var(--s));
+  background: #a9c6e6;
+}
+
+h1 {
+  margin: calc(26 * var(--s)) 0 0;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: calc(81 * var(--s));
+  line-height: 1.04;
+  letter-spacing: calc(-2.1 * var(--s));
+  text-transform: uppercase;
+  color: #0c0f13;
+}
+
+h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+
+.lede {
+  margin: calc(24 * var(--s)) 0 0;
+  font-size: calc(19 * var(--s));
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  gap: calc(28 * var(--s));
+  margin-top: calc(34 * var(--s));
+}
+
+/* ---------------- feature strip ---------------- */
+
+.strip {
+  position: absolute;
+  left: calc(68 * var(--s));
+  right: calc(56 * var(--s));
+  bottom: calc(75 * var(--s));
+  z-index: 4;
+  display: grid;
+  /* column 1 carries the longest label, so it gets extra room */
+  grid-template-columns: 1.42fr 1fr 1fr 1.12fr 1.05fr 1.12fr;
+}
+
+.strip-item {
+  display: flex;
+  align-items: center;
+  gap: calc(16 * var(--s));
+  padding: 0 calc(20 * var(--s));
+  border-right: calc(1 * var(--s)) solid #c6d6ea;
+}
+
+.strip-item:first-child { padding-left: 0; }
+.strip-item:last-child { border-right: 0; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(48 * var(--s));
+  height: calc(48 * var(--s));
+  border-radius: 50%;
+  background: var(--badge-bg);
+  color: var(--blue);
+  flex: none;
+}
+
+.badge svg {
+  width: calc(23 * var(--s));
+  height: calc(23 * var(--s));
+}
+
+.strip h2 {
+  margin: 0;
+  font-size: calc(12.5 * var(--s));
+  font-weight: 700;
+  line-height: 1.38;
+  letter-spacing: calc(0.5 * var(--s));
+  text-transform: uppercase;
+  color: #1b222c;
+}
+
+.strip h2 i { font-style: normal; }
+
+/* ============================================================
+   Tablet / mobile — stacked layout
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  :root { --s: 1px; }
+
+  /* the desktop composition is absolutely positioned, so on mobile the
+     page becomes a flex column and each block is re-ordered explicitly */
+  .page {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+    padding-bottom: 56px;
+  }
+
+  .bg-curves { display: none; }
+
+  .header   { order: 1; }
+  .hero     { order: 2; }
+  .hero-art { order: 3; }
+  .strip    { order: 4; }
+
+  .header {
+    position: sticky;
+    top: 0;
+    height: 72px;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, .92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #edf2f8;
+  }
+
+  .logo { font-size: 20px; gap: 10px; }
+  .logo img { width: 40px; height: 40px; }
+
+  .hero {
+    max-width: none;
+    padding: 40px 20px 0;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 2.6px;
+    gap: 14px;
+  }
+
+  .eyebrow .rule { width: 60px; height: 1.5px; }
+
+  h1 {
+    margin-top: 18px;
+    font-size: clamp(38px, 10.4vw, 62px);
+    letter-spacing: -1px;
+  }
+
+  h1 br { display: none; }
+
+  .lede {
+    margin-top: 18px;
+    font-size: 16px;
+  }
+
+  .lede br { display: none; }
+
+  .cta-row {
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .btn {
+    height: 54px;
+    padding: 0 26px;
+    font-size: 15px;
+  }
+
+  .hero-art {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    margin: 28px auto 0;
+  }
+
+  /* centred on mobile, so the one-sided fade would look lopsided */
+  .hero-art .backdrop {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* no room beside the artwork at this width, so he stands on it instead */
+  .hero-art .mascot {
+    left: 0;
+    width: 23%;
+  }
+
+  .strip {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin-top: 8px;
+    padding: 0 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 12px;
+  }
+
+  .strip-item {
+    padding: 0;
+    border-right: 0;
+    gap: 12px;
+  }
+
+  .badge { width: 42px; height: 42px; }
+  .badge svg { width: 20px; height: 20px; }
+
+  .strip h2 {
+    font-size: 11px;
+    letter-spacing: .4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .strip { grid-template-columns: 1fr; }
+  .cta-row .btn { width: 100%; }
+}
+
+/* ============================================================
+   Enquiry modal — fixed px, since it overlays the scaled page
+   ============================================================ */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal[hidden] { display: none; }
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 22, .55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: modal-fade .22s ease;
+}
+
+.modal-card {
+  position: relative;
+  width: min(510px, 100%);
+  max-height: calc(100vh - 48px);
+  /* sized to fit without scrolling; the fallback stays for very short
+     windows, but the scrollbar itself is hidden so no bar ever shows */
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 30px 36px 24px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 30px 80px rgba(8, 16, 30, .30);
+  animation: modal-rise .26s cubic-bezier(.2, .8, .3, 1);
+}
+
+.modal-card::-webkit-scrollbar { width: 0; height: 0; }
+
+@keyframes modal-fade { from { opacity: 0 } }
+@keyframes modal-rise { from { opacity: 0; transform: translateY(14px) scale(.985) } }
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #1b222c;
+  cursor: pointer;
+  transition: background-color .18s ease;
+}
+
+.modal-close:hover { background: #f1f3f7; }
+.modal-close svg { width: 19px; height: 19px; stroke-width: 2; }
+
+.modal-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.modal-eyebrow svg { width: 17px; height: 17px; flex: none; }
+
+.modal-card h2 {
+  margin: 11px 0 0;
+  font-family: "Archivo", sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -.5px;
+  line-height: 1.15;
+  color: #11161d;
+}
+
+.modal-sub {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: #6a737f;
+}
+
+.modal-form { margin-top: 18px; }
+
+.field { margin-bottom: 13px; }
+
+.field label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+  color: #1b222c;
+}
+
+.field input,
+.field textarea {
+  display: block;
+  width: 100%;
+  padding: 0 16px;
+  height: 46px;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  background: #f3f4f6;
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.field textarea {
+  height: 76px;
+  padding: 12px 16px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder { color: #a7aeb8; }
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  background: #fff;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(11, 79, 162, .12);
+}
+
+.field.invalid input,
+.field.invalid textarea {
+  border-color: #d64545;
+  background: #fef6f6;
+}
+
+.field .error {
+  display: none;
+  margin: 7px 0 0;
+  font-size: 12.5px;
+  color: #c93a3a;
+}
+
+.field.invalid .error { display: block; }
+
+.modal-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 18px auto 0;
+  padding: 0 34px;
+  height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--blue);
+  color: #fff;
+  font: inherit;
+  font-size: 15.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .18s ease, transform .18s ease;
+}
+
+.modal-submit:hover { background: var(--blue-deep); transform: translateY(-1px); }
+.modal-submit svg { width: 18px; height: 18px; stroke-width: 2; }
+
+.modal-foot {
+  margin: 13px 0 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: #9aa3ad;
+}
+
+/* --- success state --- */
+
+.modal-done { padding: 14px 0 10px; text-align: center; }
+.modal-done[hidden] { display: none; }
+
+.modal-done .tick {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--badge-bg);
+  color: var(--blue);
+}
+
+.modal-done .tick svg { width: 26px; height: 26px; stroke-width: 2.4; }
+
+.modal-done h3 {
+  margin: 18px 0 0;
+  font-family: "Archivo", sans-serif;
+  font-size: 23px;
+  font-weight: 700;
+  color: #11161d;
+}
+
+.modal-done p {
+  margin: 9px 0 0;
+  font-size: 15px;
+  color: #6a737f;
+}
+
+@media (max-width: 560px) {
+  .modal { padding: 14px; }
+  .modal-card { padding: 26px 20px 20px; border-radius: 20px; }
+  .modal-card h2 { font-size: 24px; }
+  .modal-close { top: 14px; right: 14px; }
+}
+
+/* short windows: tighten further so the form still fits in one view */
+@media (max-height: 680px) {
+  .modal { padding: 14px; }
+  .modal-card { padding: 22px 30px 18px; }
+  .modal-card h2 { font-size: 23px; margin-top: 8px; }
+  .modal-sub { font-size: 13.5px; margin-top: 6px; }
+  .modal-form { margin-top: 14px; }
+  .field { margin-bottom: 9px; }
+  .field label { margin-bottom: 5px; font-size: 11px; }
+  .field input, .field textarea { height: 42px; font-size: 14.5px; }
+  .field textarea { height: 58px; }
+  .modal-submit { height: 44px; margin-top: 14px; }
+  .modal-foot { margin-top: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover { transform: none; }
+  .modal-backdrop, .modal-card { animation: none; }
+  .modal-submit:hover { transform: none; }
+}
