@@ -880,7 +880,7 @@ h1 em {
 
 .site-footer {
   position: relative;
-  border-top: 1px solid rgba(255, 255, 255, .16);
+  border-top: 1px solid rgba(255, 255, 255, .22);
 }
 
 /* just the lockup and the notice now, on one line */
@@ -953,13 +953,17 @@ h1 em {
 @media (max-width: 860px) {
   /* mascot would squeeze the headline below this, so he steps aside */
   .closing-grid { grid-template-columns: 1fr; }
+  /* centred: pinning him right left a dead column beside him once the grid
+     collapsed to one column */
   .closing-mascot {
-    justify-self: end;
-    width: clamp(180px, 40vw, 280px);
-    margin-top: -20px;
+    justify-self: center;
+    width: clamp(190px, 44vw, 270px);
+    margin-top: clamp(14px, 3vw, 28px);
   }
   .closing-copy { padding-bottom: 0; }
   .closing h2 { max-width: none; }
+  /* keeps his feet off the footer rule */
+  .closing-grid { padding-bottom: clamp(26px, 5vw, 40px); }
 }
 
 @media (max-width: 680px) {
@@ -968,13 +972,22 @@ h1 em {
   .why-grid { grid-template-columns: 1fr; gap: 0; }
   .why-item { padding-bottom: clamp(18px, 2vw, 26px); }
 
-  /* footer stacks: lockup, then the notice beneath it */
+  /* the section above was ending on a large empty band before the panel */
+  .why { padding-bottom: clamp(44px, 7vw, 72px); }
+
+  /* footer stacks: lockup, then the notice beneath it, with enough room
+     between the two that they read as separate lines rather than one block */
   .site-footer .shell {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-    padding-top: 26px;
-    padding-bottom: 26px;
+    gap: 20px;
+    padding-top: 32px;
+    padding-bottom: 36px;
+  }
+
+  .footer-note {
+    font-size: 12.5px;
+    line-height: 1.55;
   }
 }
 
