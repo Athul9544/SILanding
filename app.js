@@ -2,6 +2,9 @@
 (function () {
   'use strict';
 
+  // tells the inline watchdog in <head> that this module is alive
+  window.__revealReady = true;
+
   var items = document.querySelectorAll('[data-reveal]');
   if (!items.length) return;
 
@@ -55,10 +58,21 @@
       window.removeEventListener('resize', onScroll);
     }
   }
+  // rAF can be throttled to nothing in a background tab or an offscreen
+  // frame. A boolean latch plus rAF alone would then wedge on `true` and the
+  // sweep would never run again, leaving content stuck at opacity 0 - so a
+  // timer races the frame and whichever arrives first clears the latch.
   function onScroll() {
     if (ticking) return;
     ticking = true;
-    window.requestAnimationFrame(sweep);
+    var ran = false;
+    function run() {
+      if (ran) return;
+      ran = true;
+      sweep();            // clears `ticking` itself
+    }
+    window.requestAnimationFrame(run);
+    window.setTimeout(run, 120);
   }
 
   var observer = new IntersectionObserver(function (entries) {
@@ -108,10 +122,18 @@
     });
   }
 
+  // same latch guard as the reveal sweep: never let a dropped frame wedge it
   function onScroll() {
     if (ticking) return;
     ticking = true;
-    window.requestAnimationFrame(frame);
+    var ran = false;
+    function run() {
+      if (ran) return;
+      ran = true;
+      frame();            // clears `ticking` itself
+    }
+    window.requestAnimationFrame(run);
+    window.setTimeout(run, 120);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

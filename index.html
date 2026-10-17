@@ -12,7 +12,18 @@
 <!-- Only hide reveal targets if scripting is actually running, so a JS
      failure can never leave the sections blank. Inline and before the
      stylesheet is applied, to avoid a flash of visible content. -->
-<script>document.documentElement.className += ' js-reveal';</script>
+<script>
+/* Hide reveal targets only while scripting is actually working. If app.js
+   never initialises, drop the flag so nothing stays stuck at opacity 0. */
+(function (d, w) {
+  d.documentElement.className += ' js-reveal';
+  w.addEventListener('load', function () {
+    setTimeout(function () {
+      if (!w.__revealReady) d.documentElement.classList.remove('js-reveal');
+    }, 400);
+  });
+})(document, window);
+</script>
 </head>
 <body>
 
@@ -25,7 +36,7 @@
     </svg>
 
     <!-- hero artwork -->
-    <div class="hero-art">
+    <div class="hero-art" data-reveal="right">
       <img class="backdrop" src="assets/interior.jpg" alt="Illustrated double-height living room with a tall arched window, olive tree and low seating" />
       <img class="mascot" src="assets/einstein.png" alt="Einstein-inspired scientist mascot raising a finger" />
     </div>
@@ -40,21 +51,21 @@
 
     <!-- hero copy -->
     <main class="hero">
-      <p class="eyebrow"><span>SketchUp Intelligence Modeling</span><i class="rule"></i></p>
+      <p class="eyebrow" data-reveal><span>SketchUp Intelligence Modeling</span><i class="rule"></i></p>
 
-      <h1>
+      <h1 data-reveal>
         Give Your<br />
         SketchUp An<br />
         <em>Extra Brain.</em>
       </h1>
 
-      <p class="lede">
+      <p class="lede" data-reveal>
         Turn floor plans, complex geometry, and creative<br />
         references into intelligent 3D SketchUp models<br />
         with the power of super intelligence.
       </p>
 
-      <div class="cta-row">
+      <div class="cta-row" data-reveal>
         <a class="btn btn-primary" href="#get-started">
           Get Started
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
@@ -249,7 +260,7 @@
 
     <footer class="site-footer">
       <div class="shell">
-        <a class="logo" href="#">
+        <a class="logo" href="#" data-reveal>
           <img src="assets/logo.png" alt="" />
           <span class="logo-text">SKETCHUP <span>INTELLIGENCE</span></span>
         </a>

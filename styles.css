@@ -267,7 +267,10 @@ h1 em {
     display: flex;
     flex-direction: column;
     height: auto;
+    /* y stays visible so the sticky header keeps working; x is clipped so
+       the artwork's slide-in cannot raise a horizontal scrollbar */
     overflow: visible;
+    overflow-x: clip;
     padding-bottom: 56px;
   }
 
@@ -1015,6 +1018,12 @@ h1 em {
   line-height: 1.6;
   color: var(--ink-soft);
 }
+
+/* the left/right reveals start translated sideways, which would poke past
+   the viewport and raise a scrollbar until they settle. `clip` contains it
+   without creating a scroll container, so sticky positioning still works. */
+.cap-body,
+.cap-nav { overflow-x: clip; }
 
 .cap-body { padding: clamp(48px, 6vw, 96px) 0 clamp(16px, 2vw, 32px); }
 
