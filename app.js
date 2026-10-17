@@ -25,9 +25,20 @@
     if (i !== -1) pending.splice(i, 1);
   }
 
+  // "has reached the reveal line, or is already above it" - deliberately not
+  // bounded below, so jumping down the page does not strand the sections
+  // above the viewport at opacity 0
   function inView(el) {
-    var r = el.getBoundingClientRect();
-    return r.top < (window.innerHeight || 0) * 0.92 && r.bottom > 0;
+    return el.getBoundingClientRect().top < (window.innerHeight || 0) * 0.92;
+  }
+
+  // The reveal line sits 8% above the fold, so anything inside that last 8%
+  // of the document can never cross it - there is no scroll left. Once the
+  // page bottoms out, everything still pending is due.
+  function atDocumentEnd() {
+    var doc = document.documentElement;
+    var y = window.scrollY || window.pageYOffset || 0;
+    return (window.innerHeight + y) >= doc.scrollHeight - 2;
   }
 
   // Backstop: reveals anything on screen. Runs on scroll and once after load,
@@ -35,7 +46,10 @@
   var ticking = false;
   function sweep() {
     ticking = false;
-    pending.slice().filter(inView).forEach(function (el, i) { reveal(el, i); });
+    var end = atDocumentEnd();
+    pending.slice()
+      .filter(function (el) { return end || inView(el); })
+      .forEach(function (el, i) { reveal(el, i); });
     if (!pending.length) {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
@@ -66,6 +80,43 @@
   window.addEventListener('resize', onScroll);
   window.addEventListener('load', sweep);
   setTimeout(sweep, 1200);
+})();
+
+/* Decorative layers drift against the scroll. Nothing here is content, so
+   if this never runs the page just renders them static. */
+(function () {
+  'use strict';
+
+  var layers = document.querySelectorAll('[data-parallax]');
+  if (!layers.length) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var ticking = false;
+
+  function frame() {
+    ticking = false;
+    var vh = window.innerHeight || 0;
+
+    Array.prototype.forEach.call(layers, function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) return;   // off screen, skip
+
+      // how far this element's centre is from the middle of the viewport
+      var fromCentre = (r.top + r.height / 2) - vh / 2;
+      var rate = parseFloat(el.getAttribute('data-parallax')) || 0;
+      el.style.setProperty('--py', (fromCentre * rate).toFixed(1) + 'px');
+    });
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  frame();
 })();
 
 /* Enquiry modal: opened by the Get Started button. */
