@@ -9,7 +9,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../styles.css" />
-<script>document.documentElement.className += ' js-reveal';</script>
+<script>
+/* Hide reveal targets only while scripting is actually working. If app.js
+   never initialises, drop the flag so nothing stays stuck at opacity 0. */
+(function (d, w) {
+  d.documentElement.className += ' js-reveal';
+  w.addEventListener('load', function () {
+    setTimeout(function () {
+      if (!w.__revealReady) d.documentElement.classList.remove('js-reveal');
+    }, 400);
+  });
+})(document, window);
+</script>
 </head>
 <body class="subpage">
 
@@ -42,19 +53,24 @@
 
     <section class="cap-body">
       <div class="shell">
-        <div class="cap-points">
-          <article class="cap-point" data-reveal>
-            <h2>Less Repetition</h2>
-            <p>Automate or simplify time-consuming manual modeling steps.</p>
-          </article>
-          <article class="cap-point" data-reveal>
-            <h2>Faster Iteration</h2>
-            <p>Move from concept to refined model more efficiently.</p>
-          </article>
-          <article class="cap-point" data-reveal>
-            <h2>More Creativity</h2>
-            <p>Focus on ideas, experimentation, and better design outcomes.</p>
-          </article>
+        <div class="cap-split">
+          <figure class="cap-shot" data-reveal="left">
+            <img src="../assets/cap-productivity.jpg" alt="A modelled kitchen and dining space with repeated cabinetry, shelving and seating" />
+          </figure>
+          <div class="cap-points is-stacked">
+            <article class="cap-point" data-reveal="right">
+              <h2>Less Repetition</h2>
+              <p>Automate or simplify time-consuming manual modeling steps.</p>
+            </article>
+            <article class="cap-point" data-reveal="right">
+              <h2>Faster Iteration</h2>
+              <p>Move from concept to refined model more efficiently.</p>
+            </article>
+            <article class="cap-point" data-reveal="right">
+              <h2>More Creativity</h2>
+              <p>Focus on ideas, experimentation, and better design outcomes.</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>

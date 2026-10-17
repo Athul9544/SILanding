@@ -9,7 +9,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../styles.css" />
-<script>document.documentElement.className += ' js-reveal';</script>
+<script>
+/* Hide reveal targets only while scripting is actually working. If app.js
+   never initialises, drop the flag so nothing stays stuck at opacity 0. */
+(function (d, w) {
+  d.documentElement.className += ' js-reveal';
+  w.addEventListener('load', function () {
+    setTimeout(function () {
+      if (!w.__revealReady) d.documentElement.classList.remove('js-reveal');
+    }, 400);
+  });
+})(document, window);
+</script>
 </head>
 <body class="subpage">
 

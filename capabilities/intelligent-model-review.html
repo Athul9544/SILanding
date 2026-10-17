@@ -9,7 +9,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../styles.css" />
-<script>document.documentElement.className += ' js-reveal';</script>
+<script>
+/* Hide reveal targets only while scripting is actually working. If app.js
+   never initialises, drop the flag so nothing stays stuck at opacity 0. */
+(function (d, w) {
+  d.documentElement.className += ' js-reveal';
+  w.addEventListener('load', function () {
+    setTimeout(function () {
+      if (!w.__revealReady) d.documentElement.classList.remove('js-reveal');
+    }, 400);
+  });
+})(document, window);
+</script>
 </head>
 <body class="subpage">
 
@@ -42,19 +53,24 @@
 
     <section class="cap-body">
       <div class="shell">
-        <div class="cap-points">
-          <article class="cap-point" data-reveal>
-            <h2>Find Inconsistencies</h2>
-            <p>Spot gaps, clashes, and visual mismatches across the model.</p>
-          </article>
-          <article class="cap-point" data-reveal>
-            <h2>Improve Quality</h2>
-            <p>Refine forms, details, and design continuity before delivery.</p>
-          </article>
-          <article class="cap-point" data-reveal>
-            <h2>Smarter Decisions</h2>
-            <p>Use intelligent feedback to improve the overall design result.</p>
-          </article>
+        <div class="cap-split">
+          <figure class="cap-shot" data-reveal="left">
+            <img src="../assets/cap-model-review.jpg" alt="A modelled kitchen seen down its length, with cabinetry, island and range in view for checking" />
+          </figure>
+          <div class="cap-points is-stacked">
+            <article class="cap-point" data-reveal="right">
+              <h2>Find Inconsistencies</h2>
+              <p>Spot gaps, clashes, and visual mismatches across the model.</p>
+            </article>
+            <article class="cap-point" data-reveal="right">
+              <h2>Improve Quality</h2>
+              <p>Refine forms, details, and design continuity before delivery.</p>
+            </article>
+            <article class="cap-point" data-reveal="right">
+              <h2>Smarter Decisions</h2>
+              <p>Use intelligent feedback to improve the overall design result.</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
