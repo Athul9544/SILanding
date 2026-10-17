@@ -172,10 +172,33 @@
     if (target) target.focus();
   }
 
-  function close() {
+  var closeTimer = 0;
+
+  function finishClose() {
+    window.clearTimeout(closeTimer);
+    closeTimer = 0;
+    modal.classList.remove('is-closing');
     modal.hidden = true;
     document.body.style.overflow = '';
     if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  function close() {
+    if (modal.hidden || modal.classList.contains('is-closing')) return;
+
+    // focus must leave before the dialog is hidden, or it is lost to the page
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+
+    var reduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) { finishClose(); return; }
+
+    // let the exit animation retrace the entrance, then hide for real.
+    // The timer is a backstop: if animationend never fires (interrupted,
+    // or animations disabled) the dialog still closes.
+    modal.classList.add('is-closing');
+    card.addEventListener('animationend', finishClose, { once: true });
+    closeTimer = window.setTimeout(finishClose, 400);
   }
 
   function reset() {
