@@ -176,13 +176,16 @@ svg {
   mask-image: linear-gradient(to right, transparent 0, #000 calc(90 * var(--s)));
 }
 
-/* the mascot stands just outside the artwork, against its left edge,
-   sharing the same ground line */
-.hero-art .mascot {
+/* The mascot lives in the copy column now, so that on narrow screens it can
+   simply follow the button. On desktop it is lifted out of the flow and
+   placed against the artwork's left edge, on the same ground line as before:
+   x 568 = the artwork's left edge (735) minus his width (167), and
+   y 485 = the artwork's base (795) minus his height (310). */
+.hero .mascot {
   position: absolute;
-  left: -17.83%;   /* 167 / 937 — his full width, so he clears the image */
-  bottom: 0;
-  width: 17.83%;
+  left: calc(568 * var(--s));
+  top: calc(485 * var(--s));
+  width: calc(167 * var(--s));
   height: auto;
 }
 
@@ -425,10 +428,12 @@ h1 em {
     mask-image: none;
   }
 
-  /* no room beside the artwork at this width, so he stands on it instead */
-  .hero-art .mascot {
-    left: 0;
-    width: 23%;
+  /* back into the flow, directly under the Get Started button */
+  .hero .mascot {
+    position: static;
+    display: block;
+    width: clamp(150px, 42vw, 215px);
+    margin: clamp(18px, 5vw, 30px) 0 0;
   }
 
   .badge { width: 42px; height: 42px; }
@@ -624,6 +629,9 @@ h1 em {
 .features {
   padding: clamp(64px, 8vw, 128px) 0 clamp(72px, 9vw, 140px);
   background: linear-gradient(180deg, #f5f9fe 0%, #eef4fc 100%);
+  /* the outer cards start translated beyond the page edge; clip contains
+     that without creating a scroll container */
+  overflow-x: clip;
 }
 
 .fgrid {
@@ -932,6 +940,18 @@ h1 em {
 .js-reveal [data-reveal="left"]  { transform: translateX(-34px); }
 .js-reveal [data-reveal="right"] { transform: translateX(34px); }
 .js-reveal [data-reveal="zoom"]  { transform: scale(.94); }
+
+/* The capability cards travel further than the default, so the outer
+   columns read as arriving from beyond the page edge rather than nudging
+   into place. Only worth it in the three-column layout; once the grid
+   stacks they all simply rise. */
+.js-reveal .fcard[data-reveal="left"]  { transform: translateX(-80px); }
+.js-reveal .fcard[data-reveal="right"] { transform: translateX(80px); }
+
+@media (max-width: 1024px) {
+  .js-reveal .fcard[data-reveal="left"],
+  .js-reveal .fcard[data-reveal="right"] { transform: translateY(24px); }
+}
 
 .js-reveal [data-reveal].in {
   opacity: 1;
