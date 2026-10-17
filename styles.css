@@ -121,6 +121,11 @@ a, button, input, textarea, select, summary, [role="button"] {
 .closing-btn:focus-visible,
 .site-footer .logo:focus-visible { outline-color: #fff; }
 
+/* form fields already show focus through their border and ring - a second
+   outline on top would be two indicators for one state */
+.field input:focus-visible,
+.field textarea:focus-visible { outline: none; }
+
 svg {
   fill: none;
   stroke: currentColor;
