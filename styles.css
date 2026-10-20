@@ -476,8 +476,13 @@ h1 em {
    up with the headline at every width.
    ============================================================ */
 
+/* Horizontal only, deliberately longhand: the `padding` shorthand would also
+   zero the top and bottom, silently wiping the vertical padding that
+   individual shells (.closing-grid, the footer, the capability nav) set for
+   themselves. */
 .shell {
-  padding: 0 clamp(20px, 4.07vw, 68px);
+  padding-left: clamp(20px, 4.07vw, 68px);
+  padding-right: clamp(20px, 4.07vw, 68px);
 }
 
 .section-eyebrow {
@@ -1012,7 +1017,8 @@ h1 em {
 }
 
 @media (max-width: 420px) {
-  .shell { padding: 0 16px; }
+  /* horizontal only - see the note on .shell above */
+  .shell { padding-left: 16px; padding-right: 16px; }
 
   /* the footer lockup is nowrap and larger than the header's, so it is the
      first thing to get clipped on a 320px screen */
