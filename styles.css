@@ -428,12 +428,13 @@ h1 em {
     mask-image: none;
   }
 
-  /* back into the flow, directly under the Get Started button */
+  /* back into the flow, directly under the Get Started button, centred
+     across the column rather than hanging off its left edge */
   .hero .mascot {
     position: static;
     display: block;
     width: clamp(150px, 42vw, 215px);
-    margin: clamp(18px, 5vw, 30px) 0 0;
+    margin: clamp(18px, 5vw, 30px) auto 0;
   }
 
   .badge { width: 42px; height: 42px; }
@@ -441,7 +442,6 @@ h1 em {
 }
 
 @media (max-width: 480px) {
-  .cta-row .btn { width: 100%; }
 }
 
 /* small phones: the logo lockup is nowrap, so it sets the minimum width
