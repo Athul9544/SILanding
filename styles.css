@@ -31,6 +31,7 @@
   --quick: 200ms;
   --base: 340ms;
   --slow: 560ms;
+  --cross: 1200ms;   /* the claim cards crossing - long enough to follow */
 }
 
 @media (max-width: 1680px) {
@@ -1020,9 +1021,17 @@ h1 em {
 /* The two claim cards cross as they arrive - the left one travels in from
    the right, the right one from the left - so they start well outside their
    final positions rather than nudging in. The intro section clips its
-   overflow, so the travel cannot raise a scrollbar. */
+   overflow, so the travel cannot raise a scrollbar.
+
+   They also take longer than the other reveals - the crossing is the point,
+   so it wants to be watched rather than snapped through. */
 .js-reveal .claim[data-reveal="left"]  { transform: translateX(-160px); }
 .js-reveal .claim[data-reveal="right"] { transform: translateX(160px); }
+
+.js-reveal .claim[data-reveal] {
+  transition: opacity var(--cross) var(--ease-settle),
+              transform var(--cross) var(--ease-settle);
+}
 
 @media (max-width: 680px) {
   /* stacked at this width, so crossing means nothing - they just rise */
@@ -1113,7 +1122,10 @@ h1 em {
   .js-reveal [data-reveal],
   .js-reveal [data-reveal="left"],
   .js-reveal [data-reveal="right"],
-  .js-reveal [data-reveal="zoom"] { transition: none; opacity: 1; transform: none; }
+  .js-reveal [data-reveal="zoom"],
+  .js-reveal .claim[data-reveal],
+  .js-reveal .claim[data-reveal="left"],
+  .js-reveal .claim[data-reveal="right"] { transition: none; opacity: 1; transform: none; }
   [data-parallax] { transform: none; }
   .fcard, .claim { transition: background-color var(--quick) var(--ease-settle); }
   .fcard:hover, .claim:hover { transform: none; box-shadow: none; }
