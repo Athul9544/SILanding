@@ -1017,6 +1017,19 @@ h1 em {
 .js-reveal [data-reveal="right"] { transform: translateX(34px); }
 .js-reveal [data-reveal="zoom"]  { transform: scale(.94); }
 
+/* The two claim cards cross as they arrive - the left one travels in from
+   the right, the right one from the left - so they start well outside their
+   final positions rather than nudging in. The intro section clips its
+   overflow, so the travel cannot raise a scrollbar. */
+.js-reveal .claim[data-reveal="left"]  { transform: translateX(-160px); }
+.js-reveal .claim[data-reveal="right"] { transform: translateX(160px); }
+
+@media (max-width: 680px) {
+  /* stacked at this width, so crossing means nothing - they just rise */
+  .js-reveal .claim[data-reveal="left"],
+  .js-reveal .claim[data-reveal="right"] { transform: translateY(24px); }
+}
+
 /* The capability cards carry no entry reveal - the sticky stack is their
    animation, and a reveal transform would overwrite the pile's taper. */
 
