@@ -580,52 +580,68 @@ h1 em {
 .claims {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 1.8vw, 28px);
-  margin-top: clamp(44px, 5.5vw, 86px);
+  gap: clamp(14px, 1.5vw, 24px);
+  /* reined in from the full shell width - at 1500px the pair was running
+     most of the screen, which made two short lines of text look stranded */
+  max-width: 1040px;
+  margin-top: clamp(40px, 5vw, 76px);
 }
 
 .claim {
   display: flex;
   align-items: center;
-  gap: clamp(16px, 1.6vw, 26px);
+  gap: clamp(13px, 1.25vw, 20px);
   margin: 0;
-  padding: clamp(22px, 2.2vw, 34px);
+  padding: clamp(17px, 1.65vw, 26px) clamp(18px, 1.8vw, 28px);
   border: 1px solid #dbe6f5;
-  border-radius: clamp(14px, 1.2vw, 20px);
-  background: #fff;
+  border-radius: clamp(12px, 1.05vw, 17px);
+  /* a touch of gradient rather than flat white, so the card reads as a
+     surface against the section's own wash */
+  background: linear-gradient(180deg, #fff 0%, #fafcff 100%);
+  /* resting shadow: a hairline to seat it, a wide soft one to float it */
+  box-shadow: 0 1px 2px rgba(16, 36, 64, .04), 0 8px 20px rgba(16, 36, 64, .055);
   transition: background-color var(--base) var(--ease-settle), border-color var(--base) var(--ease-settle),
               transform var(--base) var(--ease-settle), box-shadow var(--base) var(--ease-settle);
 }
 
 .claim:hover {
-  background: #e8f1fd;
+  background: #f2f7fe;
   border-color: #b9d2f0;
-  transform: translateY(-4px);
-  box-shadow: 0 18px 38px rgba(11, 79, 162, .13);
+  transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(11, 79, 162, .06), 0 16px 34px rgba(11, 79, 162, .13);
 }
 
 .claim-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(48px, 3.6vw, 62px);
-  height: clamp(48px, 3.6vw, 62px);
+  width: clamp(40px, 2.85vw, 50px);
+  height: clamp(40px, 2.85vw, 50px);
   border-radius: 50%;
-  background: var(--blue);
+  /* lit from above, and casting its own small shadow, so the disc sits on
+     the card rather than being painted onto it */
+  background: linear-gradient(160deg, #1a66c7 0%, var(--blue) 55%, #09407f 100%);
+  box-shadow: 0 4px 10px rgba(11, 79, 162, .3);
   color: #fff;
   flex: none;
+  transition: transform var(--base) var(--ease-settle), box-shadow var(--base) var(--ease-settle);
+}
+
+.claim:hover .claim-icon {
+  transform: scale(1.06);
+  box-shadow: 0 6px 16px rgba(11, 79, 162, .38);
 }
 
 .claim-icon svg {
-  width: clamp(22px, 1.7vw, 28px);
-  height: clamp(22px, 1.7vw, 28px);
+  width: clamp(19px, 1.4vw, 23px);
+  height: clamp(19px, 1.4vw, 23px);
 }
 
 .claim h3 {
   margin: 0;
   font-family: "Archivo", sans-serif;
   font-weight: 700;
-  font-size: clamp(16px, 1.55vw, 25px);
+  font-size: clamp(15px, 1.3vw, 21px);
   line-height: 1.22;
   letter-spacing: -0.012em;
   text-transform: uppercase;
