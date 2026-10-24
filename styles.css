@@ -634,67 +634,28 @@ h1 em {
 .features {
   padding: clamp(64px, 8vw, 128px) 0 clamp(72px, 9vw, 140px);
   background: linear-gradient(180deg, #f5f9fe 0%, #eef4fc 100%);
+  /* the outer cards start translated beyond the page edge; clip contains
+     that without creating a scroll container */
+  overflow-x: clip;
 }
 
-/* Heading holds its place beside the stack while the cards scroll past it. */
-.features-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: clamp(32px, 4vw, 80px);
-  align-items: start;
-}
-
-.features-head {
-  position: sticky;
-  top: clamp(90px, 16vh, 170px);
-}
-
-/* The stack. Each card pins a little lower than the one before, so the next
-   slides over it and leaves its header showing - the pile builds as you
-   scroll and holds until the section ends. */
 .fgrid {
-  display: block;
-  margin-top: clamp(10px, 1.5vw, 24px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 1.6vw, 28px);
+  margin-top: clamp(34px, 4vw, 64px);
 }
-
-.fcard {
-  position: sticky;
-  margin-bottom: clamp(44px, 5vh, 80px);
-}
-
-.fcard:nth-child(1) { top: clamp(78px, 11vh, 120px); transform: rotate(-0.9deg) scale(.962); }
-.fcard:nth-child(2) { top: calc(clamp(78px, 11vh, 120px) + 64px); transform: rotate(-0.9deg) scale(.970); }
-.fcard:nth-child(3) { top: calc(clamp(78px, 11vh, 120px) + 128px); transform: rotate(-0.9deg) scale(.978); }
-.fcard:nth-child(4) { top: calc(clamp(78px, 11vh, 120px) + 192px); transform: rotate(-0.9deg) scale(.986); }
-.fcard:nth-child(5) { top: calc(clamp(78px, 11vh, 120px) + 256px); transform: rotate(-0.9deg) scale(.993); }
-.fcard:nth-child(6) { top: calc(clamp(78px, 11vh, 120px) + 320px); transform: rotate(-0.9deg); }
-
-/* after the per-card rules so it wins: straightens and lifts to full size */
-.fgrid .fcard:hover { transform: rotate(0deg) scale(1) translateY(-4px); }
-
-/* the last card has nothing after it, so it needs no trailing gap */
-.fcard:last-child { margin-bottom: 0; }
 
 .fcard {
   display: flex;
   flex-direction: column;
-  /* tighter at the top: the icon-and-number row has to sit inside the strip
-     that stays visible once the next card covers this one */
-  padding: clamp(18px, 1.7vw, 26px) clamp(26px, 2.6vw, 44px) clamp(26px, 2.4vw, 38px);
-  min-height: clamp(210px, 24vh, 270px);
+  padding: clamp(24px, 2.2vw, 38px);
   border: 1px solid #dbe6f5;
   border-radius: clamp(14px, 1.2vw, 20px);
   background: #fff;
-  /* the whole deck leans very slightly, as in the reference, so the pile
-     reads as stacked paper rather than a flat list */
-  transform: rotate(-0.9deg);
-  /* a resting shadow so each layer separates from the one under it */
-  box-shadow: 0 -2px 10px rgba(16, 36, 64, .05), 0 16px 38px rgba(16, 36, 64, .10);
   transition: background-color var(--base) var(--ease-settle), border-color var(--base) var(--ease-settle),
               transform var(--base) var(--ease-settle), box-shadow var(--base) var(--ease-settle);
 }
-
-
 
 /* pushes the arrow to the bottom so buttons line up across a row */
 .fcard p { flex: 1; }
@@ -985,8 +946,30 @@ h1 em {
 .js-reveal [data-reveal="right"] { transform: translateX(34px); }
 .js-reveal [data-reveal="zoom"]  { transform: scale(.94); }
 
-/* The capability cards carry no reveal at all - the sticky stack is their
-   animation, and a reveal transform would overwrite the deck's tilt. */
+/* The capability cards come in from beyond the page edge, but with a little
+   depth rather than a flat sideways slide: a slight drop and scale makes
+   them read as settling into place instead of skating in. The outer columns
+   converge, the middle rises. Only meaningful in the three-column layout -
+   once the grid stacks, direction says nothing, so they just rise. */
+.js-reveal .fcard {
+  transform: translateY(26px) scale(.97);
+}
+
+.js-reveal .fcard[data-reveal="left"] {
+  transform: translate(-62px, 20px) scale(.965);
+}
+
+.js-reveal .fcard[data-reveal="right"] {
+  transform: translate(62px, 20px) scale(.965);
+}
+
+@media (max-width: 1024px) {
+  .js-reveal .fcard,
+  .js-reveal .fcard[data-reveal="left"],
+  .js-reveal .fcard[data-reveal="right"] {
+    transform: translateY(26px) scale(.975);
+  }
+}
 
 .js-reveal [data-reveal].in {
   opacity: 1;
@@ -1000,22 +983,9 @@ h1 em {
 
 @media (max-width: 1024px) {
   .intro-grid { grid-template-columns: 1fr; }
+  .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intro-mark { width: 220px; opacity: .04; }
-
-  /* heading goes above the stack and stops sticking - there is no room
-     beside it, and a sticky heading would eat the viewport */
-  .features-layout { grid-template-columns: 1fr; gap: clamp(24px, 4vw, 40px); }
-  .features-head { position: static; }
-
-  /* tighter pile: a shallower viewport cannot afford 130px of offsets */
-  .fcard { margin-bottom: clamp(32px, 4vh, 56px); }
-  .fcard:nth-child(1) { top: clamp(68px, 9vh, 92px); transform: rotate(-0.9deg) scale(.962); }
-  .fcard:nth-child(2) { top: calc(clamp(68px, 9vh, 92px) + 52px); transform: rotate(-0.9deg) scale(.970); }
-  .fcard:nth-child(3) { top: calc(clamp(68px, 9vh, 92px) + 104px); transform: rotate(-0.9deg) scale(.978); }
-  .fcard:nth-child(4) { top: calc(clamp(68px, 9vh, 92px) + 156px); transform: rotate(-0.9deg) scale(.986); }
-  .fcard:nth-child(5) { top: calc(clamp(68px, 9vh, 92px) + 208px); transform: rotate(-0.9deg) scale(.993); }
-  .fcard:nth-child(6) { top: calc(clamp(68px, 9vh, 92px) + 260px); transform: rotate(-0.9deg); }
 }
 
 @media (max-width: 860px) {
@@ -1035,6 +1005,7 @@ h1 em {
 }
 
 @media (max-width: 680px) {
+  .fgrid { grid-template-columns: 1fr; }
   .claims { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; gap: 0; }
   .why-item { padding-bottom: clamp(18px, 2vw, 26px); }
@@ -1089,10 +1060,6 @@ h1 em {
   .modal-backdrop, .modal-card,
   .modal.is-closing .modal-backdrop,
   .modal.is-closing .modal-card { animation: none; }
-
-  /* the card stack is scroll-driven motion, so unstack it into a plain list */
-  .fcard { position: static; }
-  .features-head { position: static; }
 }
 
 /* Translucent chrome becomes frosted-solid rather than see-through. */
