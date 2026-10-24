@@ -946,16 +946,29 @@ h1 em {
 .js-reveal [data-reveal="right"] { transform: translateX(34px); }
 .js-reveal [data-reveal="zoom"]  { transform: scale(.94); }
 
-/* The capability cards travel further than the default, so the outer
-   columns read as arriving from beyond the page edge rather than nudging
-   into place. Only worth it in the three-column layout; once the grid
-   stacks they all simply rise. */
-.js-reveal .fcard[data-reveal="left"]  { transform: translateX(-80px); }
-.js-reveal .fcard[data-reveal="right"] { transform: translateX(80px); }
+/* The capability cards come in from beyond the page edge, but with a little
+   depth rather than a flat sideways slide: a slight drop and scale makes
+   them read as settling into place instead of skating in. The outer columns
+   converge, the middle rises. Only meaningful in the three-column layout -
+   once the grid stacks, direction says nothing, so they just rise. */
+.js-reveal .fcard {
+  transform: translateY(26px) scale(.97);
+}
+
+.js-reveal .fcard[data-reveal="left"] {
+  transform: translate(-62px, 20px) scale(.965);
+}
+
+.js-reveal .fcard[data-reveal="right"] {
+  transform: translate(62px, 20px) scale(.965);
+}
 
 @media (max-width: 1024px) {
+  .js-reveal .fcard,
   .js-reveal .fcard[data-reveal="left"],
-  .js-reveal .fcard[data-reveal="right"] { transform: translateY(24px); }
+  .js-reveal .fcard[data-reveal="right"] {
+    transform: translateY(26px) scale(.975);
+  }
 }
 
 .js-reveal [data-reveal].in {

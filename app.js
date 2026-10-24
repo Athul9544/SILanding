@@ -22,7 +22,10 @@
   // idempotent, so the observer and the scroll sweep can both call it
   function reveal(el, order) {
     if (el.classList.contains('in')) return;
-    el.style.transitionDelay = (order * 90) + 'ms';
+    // The cascade is capped: a batch can be 20+ elements when the page is
+    // jumped to the end, and an uncapped 90ms step would trail for over two
+    // seconds. Beyond the cap everything lands together.
+    el.style.transitionDelay = Math.min(order * 90, 420) + 'ms';
     el.classList.add('in');
     var i = pending.indexOf(el);
     if (i !== -1) pending.splice(i, 1);
