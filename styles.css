@@ -662,12 +662,15 @@ h1 em {
   margin-bottom: clamp(44px, 5vh, 80px);
 }
 
-.fcard:nth-child(1) { top: clamp(78px, 11vh, 120px); }
-.fcard:nth-child(2) { top: calc(clamp(78px, 11vh, 120px) + 64px); }
-.fcard:nth-child(3) { top: calc(clamp(78px, 11vh, 120px) + 128px); }
-.fcard:nth-child(4) { top: calc(clamp(78px, 11vh, 120px) + 192px); }
-.fcard:nth-child(5) { top: calc(clamp(78px, 11vh, 120px) + 256px); }
-.fcard:nth-child(6) { top: calc(clamp(78px, 11vh, 120px) + 320px); }
+.fcard:nth-child(1) { top: clamp(78px, 11vh, 120px); transform: rotate(-0.9deg) scale(.962); }
+.fcard:nth-child(2) { top: calc(clamp(78px, 11vh, 120px) + 64px); transform: rotate(-0.9deg) scale(.970); }
+.fcard:nth-child(3) { top: calc(clamp(78px, 11vh, 120px) + 128px); transform: rotate(-0.9deg) scale(.978); }
+.fcard:nth-child(4) { top: calc(clamp(78px, 11vh, 120px) + 192px); transform: rotate(-0.9deg) scale(.986); }
+.fcard:nth-child(5) { top: calc(clamp(78px, 11vh, 120px) + 256px); transform: rotate(-0.9deg) scale(.993); }
+.fcard:nth-child(6) { top: calc(clamp(78px, 11vh, 120px) + 320px); transform: rotate(-0.9deg); }
+
+/* after the per-card rules so it wins: straightens and lifts to full size */
+.fgrid .fcard:hover { transform: rotate(0deg) scale(1) translateY(-4px); }
 
 /* the last card has nothing after it, so it needs no trailing gap */
 .fcard:last-child { margin-bottom: 0; }
@@ -691,8 +694,7 @@ h1 em {
               transform var(--base) var(--ease-settle), box-shadow var(--base) var(--ease-settle);
 }
 
-/* straightens as you point at it */
-.fcard:hover { transform: rotate(0deg) translateY(-4px); }
+
 
 /* pushes the arrow to the bottom so buttons line up across a row */
 .fcard p { flex: 1; }
@@ -1008,12 +1010,12 @@ h1 em {
 
   /* tighter pile: a shallower viewport cannot afford 130px of offsets */
   .fcard { margin-bottom: clamp(32px, 4vh, 56px); }
-  .fcard:nth-child(1) { top: clamp(68px, 9vh, 92px); }
-  .fcard:nth-child(2) { top: calc(clamp(68px, 9vh, 92px) + 52px); }
-  .fcard:nth-child(3) { top: calc(clamp(68px, 9vh, 92px) + 104px); }
-  .fcard:nth-child(4) { top: calc(clamp(68px, 9vh, 92px) + 156px); }
-  .fcard:nth-child(5) { top: calc(clamp(68px, 9vh, 92px) + 208px); }
-  .fcard:nth-child(6) { top: calc(clamp(68px, 9vh, 92px) + 260px); }
+  .fcard:nth-child(1) { top: clamp(68px, 9vh, 92px); transform: rotate(-0.9deg) scale(.962); }
+  .fcard:nth-child(2) { top: calc(clamp(68px, 9vh, 92px) + 52px); transform: rotate(-0.9deg) scale(.970); }
+  .fcard:nth-child(3) { top: calc(clamp(68px, 9vh, 92px) + 104px); transform: rotate(-0.9deg) scale(.978); }
+  .fcard:nth-child(4) { top: calc(clamp(68px, 9vh, 92px) + 156px); transform: rotate(-0.9deg) scale(.986); }
+  .fcard:nth-child(5) { top: calc(clamp(68px, 9vh, 92px) + 208px); transform: rotate(-0.9deg) scale(.993); }
+  .fcard:nth-child(6) { top: calc(clamp(68px, 9vh, 92px) + 260px); transform: rotate(-0.9deg); }
 }
 
 @media (max-width: 860px) {
