@@ -654,8 +654,10 @@ h1 em {
   flex-direction: column;
   /* tight at the top so the icon-and-number row sits inside the strip that
      stays visible once the next card covers this one */
-  padding: clamp(18px, 1.7vw, 26px) clamp(26px, 2.6vw, 44px) clamp(26px, 2.4vw, 38px);
-  min-height: clamp(210px, 24vh, 270px);
+  padding: clamp(18px, 1.7vw, 26px) clamp(28px, 3vw, 52px) clamp(30px, 3vw, 46px);
+  /* substantial panels, as in the reference, where each card fills most of
+     the viewport rather than reading as a summary tile */
+  min-height: clamp(290px, 44vh, 410px);
   margin-bottom: clamp(44px, 5vh, 80px);
   border: 1px solid #dbe6f5;
   border-radius: clamp(14px, 1.2vw, 20px);
@@ -681,21 +683,66 @@ h1 em {
 /* after the per-card rules so it wins */
 .fgrid .fcard:hover { transform: scale(1) translateY(-4px); }
 
-/* pushes the arrow to the bottom so buttons line up across a row */
+/* Alternating tone. In the reference the cards run light, dark, light, and
+   that contrast is what makes the layers legible as they pile up - six
+   identical white panels read as blank strips. These are the brand blue and
+   white, so the palette does not change. */
+.fcard:nth-child(even) {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.fcard:nth-child(even) h3 { color: #fff; }
+.fcard:nth-child(even) p { color: #c8dcf6; }
+.fcard:nth-child(even) .fcard-num { color: rgba(255, 255, 255, .45); }
+
+.fcard:nth-child(even) .badge {
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+}
+
+/* ghost button on the dark panels - the base pill is white-on-white here */
+.fcard:nth-child(even) .fcard-go {
+  background: transparent;
+  border-color: rgba(255, 255, 255, .5);
+  color: #fff;
+}
+
+.fcard:nth-child(even):hover { background: #0a4890; }
+
+.fcard:nth-child(even):hover .fcard-go,
+.fcard:nth-child(even) .fcard-go:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--blue);
+}
+
+/* the panels are tall now, so the type inside grows to match */
+.fcard h3 { font-size: clamp(17px, 1.5vw, 24px); }
+.fcard p { font-size: clamp(14.5px, 1.1vw, 17px); max-width: 52ch; }
+
+/* pushes the button to the bottom of the panel */
 .fcard p { flex: 1; }
 
+/* a labelled pill rather than a bare arrow, as the reference cards use */
 .fcard-go {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
+  gap: 10px;
+  height: clamp(44px, 3.4vw, 52px);
+  padding: 0 clamp(18px, 1.6vw, 26px);
   margin-top: clamp(18px, 1.6vw, 26px);
   border: 1.5px solid #cfe0f5;
-  border-radius: 50%;
+  border-radius: 999px;
   background: #fff;
   color: var(--blue);
+  font-size: clamp(12.5px, .95vw, 14px);
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
   transition: background-color var(--base) var(--ease-settle), border-color var(--base) var(--ease-settle),
               color var(--base) var(--ease-settle), transform var(--base) var(--ease-settle);
 }
