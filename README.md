@@ -20,7 +20,7 @@ python -m http.server 8000
 | --- | --- |
 | `index.html` | Full page markup plus the enquiry modal |
 | `styles.css` | All styling, including the responsive and modal rules |
-| `app.js` | Scroll reveal and enquiry modal behaviour |
+| `app.js` | Scroll reveal, the pinned About section, and enquiry modal behaviour |
 | `capabilities/*.html` | One detail page per capability, linked from the cards |
 | `vercel.json` | Git deployments turned **off** (see below) |
 | `assets/logo.png` | Brand mark, transparent |
@@ -64,6 +64,29 @@ To connect a backend, POST the payload in the submit handler in `app.js`:
 var payload = Object.fromEntries(new FormData(form).entries());
 // fetch('/api/enquiries', { method: 'POST', body: JSON.stringify(payload) })
 ```
+
+## The pinned About section
+
+`01 / About the Intelligence` holds still while you scroll past it, and the two
+claim cards fly in from the bottom corners during the hold. `.intro-pin` is the
+runway — the height it has over `100vh` is how long the section stays put — and
+`.intro-stick` is what sticks.
+
+The flight is driven from `app.js`, not by a CSS scroll timeline, so it behaves
+the same in every browser. `hold()` returns 0 the moment the section locks and 1
+as it lets go; the cards travel between 8% and 62% of that. The module takes the
+two cards off the reveal module by removing their `data-reveal`, so only one
+thing ever moves them, and it drops its inline transform once a card lands so
+the hover lift works again.
+
+It only engages above `681px` wide and `640px` tall, and never under
+`prefers-reduced-motion`. Anywhere else the cards keep the ordinary timed
+reveal. `window.__introScrub` exposes `frame()` and `hold()` so the animation
+can be stepped through without faking scroll events.
+
+Note that `.intro` uses `overflow: clip`, not `hidden` — `hidden` would make it
+a scroll container and the sticky element inside would have nothing to stick
+against.
 
 ## Capability pages
 

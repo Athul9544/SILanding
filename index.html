@@ -79,6 +79,13 @@
 
   <!-- ===================== 02 · introduction ===================== -->
   <section class="intro" id="about">
+    <!-- .intro-pin is the scroll runway: it is taller than the viewport, and
+         .intro-stick holds the section still while it passes. The claim cards
+         below are animated off that runway's own timeline, so they fly in as
+         you scroll rather than on a timer. Both only take effect where
+         scroll-driven animations are supported and the viewport has room. -->
+    <div class="intro-pin">
+    <div class="intro-stick">
     <span class="intro-glow" aria-hidden="true" data-parallax="-0.05"></span>
     <img class="intro-mark" src="assets/logo.png" alt="" aria-hidden="true" data-parallax="0.07" />
 
@@ -112,6 +119,8 @@
           <h3>More time for creative thinking.</h3>
         </article>
       </div>
+    </div>
+    </div>
     </div>
   </section>
 

@@ -510,7 +510,9 @@ h1 em {
 
 .intro {
   position: relative;
-  overflow: hidden;
+  /* clip, not hidden: `hidden` would make this a scroll container and the
+     pinned .intro-stick inside would have nothing to stick against. */
+  overflow: clip;
   padding: clamp(68px, 8.5vw, 136px) 0 clamp(68px, 8vw, 124px);
   background: linear-gradient(180deg, #fff 0%, #fbfdff 62%, #f4f9fe 100%);
 }
@@ -1024,7 +1026,9 @@ h1 em {
    overflow, so the travel cannot raise a scrollbar.
 
    They also take longer than the other reveals - the crossing is the point,
-   so it wants to be watched rather than snapped through. */
+   so it wants to be watched rather than snapped through. This is the timed
+   fallback; where scroll-driven animation is available the block further
+   down replaces it with the pinned, diagonal version. */
 .js-reveal .claim[data-reveal="left"]  { transform: translateX(-160px); }
 .js-reveal .claim[data-reveal="right"] { transform: translateX(160px); }
 
@@ -1037,6 +1041,55 @@ h1 em {
   /* stacked at this width, so crossing means nothing - they just rise */
   .js-reveal .claim[data-reveal="left"],
   .js-reveal .claim[data-reveal="right"] { transform: translateY(24px); }
+}
+
+/* ---------------- 01 / About: pinned diagonal entry ---------------- */
+
+/* The section holds still for a stretch of scrolling, and the two claim
+   cards fly in from the bottom corners - outside the frame, diagonally -
+   tied to how far through that hold you are. Scrubbing the scrollbar
+   scrubs the animation, because it is the scroll position driving it.
+
+   The flight itself is written in app.js, not as a CSS scroll timeline: the
+   script owns the cards' transform so the same code runs everywhere, and so
+   it can be measured. This block only builds the runway it scrubs against.
+
+   Needs a viewport with room to be pinned in, so phones and short windows
+   keep the ordinary timed reveal above. */
+@media (min-width: 681px) and (min-height: 640px) {
+  .intro { padding-top: 0; padding-bottom: 0; }
+
+  /* the runway: the extra height over 100vh is how long the hold lasts */
+  .intro-pin { height: 200vh; }
+
+  .intro-stick {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    padding: clamp(24px, 2.6vw, 44px) 0;
+    box-sizing: border-box;
+  }
+
+  .intro-stick > .shell { width: 100%; }
+
+  /* While a card is mid-flight the script writes transform every frame, so
+     a transition on it would fight the scrub. Colour and shadow still ease,
+     and once a card lands the script drops the inline transform, which
+     hands the hover lift back. */
+  .claim[data-flying] {
+    transition: background-color var(--base) var(--ease-settle),
+                border-color var(--base) var(--ease-settle),
+                box-shadow var(--base) var(--ease-settle);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* no pin, no flight - the section behaves like any other */
+    .intro { padding-top: clamp(68px, 8.5vw, 136px); padding-bottom: clamp(68px, 8vw, 124px); }
+    .intro-pin { height: auto; }
+    .intro-stick { position: static; display: block; min-height: 0; padding: 0; }
+  }
 }
 
 /* The capability cards carry no entry reveal - the sticky stack is their

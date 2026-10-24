@@ -1,3 +1,133 @@
+/* 01 / About: the section is pinned for a stretch of scrolling, and while it
+   is held the two claim cards fly in from the bottom corners - outside the
+   frame, diagonally. Position in that hold drives the frame, so dragging the
+   scrollbar scrubs the flight back and forth.
+
+   Written here rather than as a CSS scroll timeline so it behaves the same in
+   every browser. Runs before the reveal module below and takes the cards off
+   its hands, so only one thing is ever moving them. */
+(function () {
+  'use strict';
+
+  var pin = document.querySelector('.intro-pin');
+  var stick = document.querySelector('.intro-stick');
+  var cards = document.querySelectorAll('.claims .claim');
+  if (!pin || !stick || cards.length !== 2) return;
+
+  // must match the media query that builds the runway in styles.css
+  var ROOMY = '(min-width: 681px) and (min-height: 640px)';
+  var REDUCED = '(prefers-reduced-motion: reduce)';
+  var mq = window.matchMedia ? window.matchMedia(ROOMY) : null;
+
+  // the slice of the hold the flight occupies: a little in, so the heading
+  // lands first, and done well before the section lets go
+  var FROM = 0.08, TO = 0.62;
+
+  // how far outside the frame each card starts
+  var OUT_X = 0.62;   // of the viewport width, to its own side
+  var OUT_Y = 0.52;   // of the viewport height, below
+  var TILT = 7;       // degrees
+  var SMALL = 0.82;   // starting scale
+
+  var flying = false;
+
+  function roomy() {
+    if (window.matchMedia && window.matchMedia(REDUCED).matches) return false;
+    return mq ? mq.matches : true;
+  }
+
+  function clamp01(n) { return n < 0 ? 0 : n > 1 ? 1 : n; }
+
+  /* 0 at the moment the section locks, 1 when it is about to let go */
+  function hold() {
+    var box = pin.getBoundingClientRect();
+    var span = box.height - (window.innerHeight || 0);
+    if (span <= 0) return 1;
+    return clamp01(-box.top / span);
+  }
+
+  function place(el, dir, t, op) {
+    if (t >= 1) {
+      // landed: drop the inline transform so :hover can lift it again
+      el.style.transform = '';
+      el.style.opacity = '';
+      el.removeAttribute('data-flying');
+      return;
+    }
+    el.setAttribute('data-flying', '');
+    var out = 1 - t;
+    var x = dir * OUT_X * out * (window.innerWidth || 0);
+    var y = OUT_Y * out * (window.innerHeight || 0);
+    el.style.transform = 'translate(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px) ' +
+      'rotate(' + (dir * TILT * out).toFixed(2) + 'deg) ' +
+      'scale(' + (SMALL + (1 - SMALL) * t).toFixed(4) + ')';
+    el.style.opacity = op.toFixed(3);
+  }
+
+  function frame() {
+    var t = clamp01((hold() - FROM) / (TO - FROM));
+    // Ease out, but only gently. A steeper curve covers most of the distance
+    // in the first fraction of the scroll, and the cards then appear to come
+    // straight up out of the middle - the diagonal is over before they are
+    // visible.
+    var eased = 1 - Math.pow(1 - t, 2);
+    // Up to full while still well outside the frame, so the travel is the
+    // part you watch rather than the part you miss.
+    var op = Math.min(1, t / 0.3);
+    place(cards[0], 1, eased, op);    // left card, in from the right
+    place(cards[1], -1, eased, op);   // right card, in from the left
+  }
+
+  function clear() {
+    Array.prototype.forEach.call(cards, function (el) {
+      el.style.transform = '';
+      el.style.opacity = '';
+      el.removeAttribute('data-flying');
+    });
+  }
+
+  // same latch guard as the sweeps below: never let a dropped frame wedge it
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    var ran = false;
+    function run() {
+      if (ran) return;
+      ran = true;
+      ticking = false;
+      if (flying) frame();
+    }
+    window.requestAnimationFrame(run);
+    window.setTimeout(run, 120);
+  }
+
+  function sync() {
+    var want = roomy();
+    if (want === flying) { if (flying) frame(); return; }
+    flying = want;
+    if (flying) {
+      // take the cards off the reveal module - it reads [data-reveal] when it
+      // starts, just below, so by then these two are no longer in the set
+      Array.prototype.forEach.call(cards, function (el) {
+        el.removeAttribute('data-reveal');
+        el.classList.remove('in');
+      });
+      frame();
+    } else {
+      clear();
+    }
+  }
+
+  sync();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', sync);
+  window.addEventListener('load', sync);
+
+  // exposed so the layout can be measured without faking scroll events
+  window.__introScrub = { frame: frame, hold: hold, sync: sync };
+})();
+
 /* Reveal elements as they scroll into view, cascading within a group. */
 (function () {
   'use strict';
