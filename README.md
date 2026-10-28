@@ -5,6 +5,8 @@ floor plans, geometry and reference imagery into 3D SketchUp models.
 
 Static HTML, CSS and vanilla JavaScript. No build step, no dependencies.
 
+**Live:** https://sketch-virid.vercel.app
+
 ## Running it
 
 Open `index.html` directly in a browser, or serve the folder:
@@ -22,7 +24,7 @@ python -m http.server 8000
 | `styles.css` | All styling, including the responsive and modal rules |
 | `app.js` | Scroll reveal, the pinned About section, and enquiry modal behaviour |
 | `capabilities/*.html` | One detail page per capability, linked from the cards |
-| `vercel.json` | Git deployments turned **off** (see below) |
+| `vercel.json` | Git deployment switch (see Deployments) |
 | `assets/logo.png` | Brand mark, transparent |
 | `assets/interior.jpg` | Hero artwork |
 | `assets/einstein.png` | Mascot, cut out with an alpha channel |
@@ -97,8 +99,11 @@ If you change the shared layout, change it in every file, or regenerate them.
 
 ## Deployments
 
+The site is deployed on Vercel at **https://sketch-virid.vercel.app**, from the
+`main` branch of `Athul9544/SILanding`.
+
 `vercel.json` sets `git.deploymentEnabled: true`, so pushing to `main`
-triggers a Vercel deployment. Set it to `false` to pause them.
+triggers a deployment. Set it to `false` to pause them.
 
 Note that the dashboard is the authoritative control: if a project has branch
 tracking disabled, Vercel may ignore `vercel.json` entirely. Project → Settings
