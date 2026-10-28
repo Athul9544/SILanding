@@ -696,12 +696,13 @@ h1 em {
 /* Each card pins 64px lower than the one before, so the pile shows every
    icon and number down to the live card. Cards deeper in the pile sit
    fractionally smaller so the stacked edges taper away. */
-.fcard:nth-child(1) { top: clamp(78px, 11vh, 120px);              transform: scale(.962); }
-.fcard:nth-child(2) { top: calc(clamp(78px, 11vh, 120px) +  64px); transform: scale(.970); }
-.fcard:nth-child(3) { top: calc(clamp(78px, 11vh, 120px) + 128px); transform: scale(.978); }
-.fcard:nth-child(4) { top: calc(clamp(78px, 11vh, 120px) + 192px); transform: scale(.986); }
-.fcard:nth-child(5) { top: calc(clamp(78px, 11vh, 120px) + 256px); transform: scale(.993); }
-.fcard:nth-child(6) { top: calc(clamp(78px, 11vh, 120px) + 320px); transform: none; }
+.fcard:nth-child(1) { top: clamp(78px, 11vh, 120px);              transform: scale(.956); }
+.fcard:nth-child(2) { top: calc(clamp(78px, 11vh, 120px) +  64px); transform: scale(.962); }
+.fcard:nth-child(3) { top: calc(clamp(78px, 11vh, 120px) + 128px); transform: scale(.970); }
+.fcard:nth-child(4) { top: calc(clamp(78px, 11vh, 120px) + 192px); transform: scale(.978); }
+.fcard:nth-child(5) { top: calc(clamp(78px, 11vh, 120px) + 256px); transform: scale(.986); }
+.fcard:nth-child(6) { top: calc(clamp(78px, 11vh, 120px) + 320px); transform: scale(.993); }
+.fcard:nth-child(7) { top: calc(clamp(78px, 11vh, 120px) + 384px); transform: none; }
 
 /* after the per-card rules so it wins */
 .fgrid .fcard:hover { transform: scale(1) translateY(-4px); }
@@ -1137,6 +1138,7 @@ h1 em {
   .fcard:nth-child(4) { top: calc(clamp(68px, 9vh, 92px) + 156px); }
   .fcard:nth-child(5) { top: calc(clamp(68px, 9vh, 92px) + 208px); }
   .fcard:nth-child(6) { top: calc(clamp(68px, 9vh, 92px) + 260px); }
+  .fcard:nth-child(7) { top: calc(clamp(68px, 9vh, 92px) + 312px); }
   .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .intro-mark { width: 220px; opacity: .04; }
 }
