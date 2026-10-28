@@ -1398,9 +1398,9 @@ h1 em {
   border: 1px solid #e1e8f2;
 }
 
-/* the Gmail envelope is wider than it is tall, so it needs less width
-   than the WhatsApp glyph to look the same size on the disc */
-.qc-mail svg { width: 50%; height: 50%; }
+/* The Gmail envelope is landscape, so it takes its height from the
+   artwork rather than being squared off with the WhatsApp glyph. */
+.qc-mail svg { width: 54%; height: auto; }
 
 .qc-btn:hover {
   transform: translateY(-3px);
