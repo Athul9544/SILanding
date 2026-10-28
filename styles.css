@@ -1354,6 +1354,53 @@ h1 em {
   color: var(--ink-soft);
 }
 
+/* Each numbered way into the capability. A hairline above separates one
+   from the next without boxing them, which would compete with the
+   artefacts inside. */
+.cap-type {
+  margin-top: clamp(44px, 5vw, 84px);
+  padding-top: clamp(34px, 4vw, 64px);
+  border-top: 1px solid #e3ebf6;
+}
+
+/* the first one follows the intro paragraph, which is separation enough */
+.cap-type:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.cap-type-label {
+  margin: 0;
+  font-size: clamp(11px, .95vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cap-type-label span {
+  display: inline-block;
+  padding: 6px clamp(10px, 1vw, 14px);
+  border-radius: 999px;
+  background: #e8f1fd;
+  color: var(--blue);
+}
+
+.cap-type-title {
+  margin: clamp(12px, 1.3vw, 20px) 0 0;
+  font-family: "Archivo", sans-serif;
+  font-weight: 800;
+  font-size: clamp(21px, 2.1vw, 34px);
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  text-transform: uppercase;
+  color: #0c0f13;
+}
+
+.cap-type-title i { font-style: normal; color: var(--blue); }
+
+/* the title already carries the gap above the copy */
+.cap-type .cap-para { margin-top: clamp(12px, 1.2vw, 18px); }
+
 /* input + input -> output, shown with the real artefacts */
 .flow {
   display: flex;
