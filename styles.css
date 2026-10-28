@@ -584,7 +584,11 @@ h1 em {
   /* reined in from the full shell width - at 1500px the pair was running
      most of the screen, which made two short lines of text look stranded */
   max-width: 1040px;
+  /* longhand, not a shorthand - `margin: 0 auto` here would silently wipe
+     the top margin the section depends on */
   margin-top: clamp(40px, 5vw, 76px);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .claim {
