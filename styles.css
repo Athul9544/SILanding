@@ -1388,6 +1388,20 @@ h1 em {
   display: block;
 }
 
+/* Each mark is carried at its own brand colour, so the disc behind it is
+   whatever that logo is normally set on: WhatsApp's green with the glyph
+   knocked out white, Gmail's envelope on white. */
+.qc-whatsapp { background: #25d366; }
+
+.qc-mail {
+  background: #fff;
+  border: 1px solid #e1e8f2;
+}
+
+/* the Gmail envelope is wider than it is tall, so it needs less width
+   than the WhatsApp glyph to look the same size on the disc */
+.qc-mail svg { width: 50%; height: 50%; }
+
 .qc-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 3px 8px rgba(16, 36, 64, .2), 0 16px 34px rgba(16, 36, 64, .28);
@@ -1398,7 +1412,10 @@ h1 em {
   transition-duration: var(--press);
 }
 
-.qc-mail { background: var(--blue); }
+/* The WhatsApp mark has no number behind it yet, so it is a plain icon
+   rather than a link. It still lifts on hover so it does not read as
+   disabled; drop an href on it and nothing else needs to change. */
+.qc-btn:not([href]) { cursor: default; }
 
 @media (prefers-reduced-motion: reduce) {
   .qc-btn:hover, .qc-btn:active { transform: none; }
