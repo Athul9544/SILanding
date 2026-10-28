@@ -1388,10 +1388,38 @@ h1 em {
   display: block;
 }
 
-/* Each mark is carried at its own brand colour, so the disc behind it is
-   whatever that logo is normally set on: WhatsApp's green with the glyph
-   knocked out white, Gmail's envelope on white. */
-.qc-whatsapp { background: #25d366; }
+/* Gmail is a glyph that needs a surface under it; WhatsApp is supplied
+   artwork that already carries its own bubble and white keyline, so it
+   sits on nothing. */
+
+.qc-whatsapp {
+  background: none;
+  /* box-shadow would trace the square bounding box around transparent
+     artwork - drop-shadow follows the bubble's actual alpha instead */
+  box-shadow: none;
+  filter: drop-shadow(0 4px 10px rgba(16, 36, 64, .3));
+}
+
+.qc-whatsapp:hover {
+  box-shadow: none;
+  filter: drop-shadow(0 8px 17px rgba(16, 36, 64, .36));
+}
+
+/* The bubble sits inside its own keyline and leaves room for the tail,
+   so at the same box size it reads smaller than the Gmail disc beside
+   it. Oversizing the artwork lines the two up optically; it overflows
+   the box, which is harmless with no background behind it. */
+/* Scaled with a transform, not a percentage size: at 114% width/height
+   the image grew the button, which grew the image again, and the pair
+   settled on a non-square box that squashed the bubble. A transform is
+   purely visual, so the button keeps its own dimensions. */
+.qc-whatsapp img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: block;
+  transform: scale(1.14);
+}
 
 .qc-mail {
   background: #fff;
