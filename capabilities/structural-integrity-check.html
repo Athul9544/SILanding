@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Structural Integrity Check &amp; Improvement — SketchUp Intelligence</title>
+<meta name="description" content="Find structural weak points in a model and strengthen them before they reach site." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+<script>
+/* Hide reveal targets only while scripting is actually working. If app.js
+   never initialises, drop the flag so nothing stays stuck at opacity 0. */
+(function (d, w) {
+  d.documentElement.className += ' js-reveal';
+  w.addEventListener('load', function () {
+    setTimeout(function () {
+      if (!w.__revealReady) d.documentElement.classList.remove('js-reveal');
+    }, 400);
+  });
+})(document, window);
+</script>
+</head>
+<body class="subpage">
+
+  <header class="sub-header">
+    <a class="logo" href="../index.html" data-reveal>
+      <img src="../assets/logo.png" alt="" />
+      <span class="logo-text">SKETCHUP <span>INTELLIGENCE</span></span>
+    </a>
+
+    <a class="back-link" href="../index.html#capabilities" aria-label="Back to all capabilities">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 18l-6-6 6-6" /></svg>
+      <span>All capabilities</span>
+    </a>
+  </header>
+
+  <main>
+    <section class="cap-hero">
+      <span class="cap-watermark" aria-hidden="true">07</span>
+      <div class="shell">
+        <p class="section-eyebrow" data-reveal><i class="dash"></i>Capability 07</p>
+        <div class="cap-head" data-reveal>
+          <span class="badge cap-badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5.4c0 4.3-2.9 7.9-7 9-4.1-1.1-7-4.7-7-9V6z" /><path d="m9 12 2.2 2.2L15.5 10" /></svg>
+          </span>
+          <h1 class="section-title">Structural Integrity Check &amp; Improvement</h1>
+        </div>
+        <p class="cap-lead" data-reveal>Find structural weak points in a model and strengthen them before they reach site.</p>
+      </div>
+    </section>
+
+    <section class="cap-body">
+      <div class="shell">
+        <p class="cap-para" data-reveal>SketchUp Intelligence reads the model as a structure, not just a set of surfaces. It follows how loads travel through walls, slabs and supports, points out the members doing more work than they should, and suggests changes that keep the design intent intact.</p>
+
+        <div class="cap-split">
+          <figure class="cap-shot" data-reveal="left">
+            <img src="../assets/cap-structural-integrity.jpg" alt="A modelled house with deep cantilevers and long spans, the kind of form a structural check is run against" />
+          </figure>
+          <div class="cap-points is-stacked">
+            <article class="cap-point" data-reveal="right">
+              <h2>Load Path Review</h2>
+              <p>Follow how weight travels through the model, down to what finally carries it.</p>
+            </article>
+            <article class="cap-point" data-reveal="right">
+              <h2>Weak Point Detection</h2>
+              <p>Flag over-long spans, thin walls and unsupported elements early.</p>
+            </article>
+            <article class="cap-point" data-reveal="right">
+              <h2>Reinforcement Suggestions</h2>
+              <p>Get sizing and bracing changes that strengthen the build without redrawing it.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cap-cta">
+      <div class="shell">
+        <h2 data-reveal>Want this on your next project?</h2>
+        <p data-reveal>Tell us what you are modelling and we will come back within 24 hours.</p>
+        <a class="btn btn-primary cap-cta-btn" data-reveal href="../index.html#get-started">
+          Get Started
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
+        </a>
+      </div>
+    </section>
+
+    <nav class="cap-nav">
+      <div class="shell">
+        <a class="cap-nav-link prev" href="automatic-view-setting.html" data-reveal="left">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 18l-6-6 6-6" /></svg>
+          <span><em>Previous</em>Automatic View Setting</span>
+        </a>
+        <a class="cap-nav-link next" href="floor-plan-to-3d-model.html" data-reveal="right">
+          <span><em>Next</em>Floor Plan To 3D Model</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
+        </a>
+      </div>
+    </nav>
+  </main>
+
+  <!-- Floating contact shortcuts, fixed bottom-right on every page.
+       WhatsApp is an icon rather than a link until a number exists. -->
+  <div class="quick-contact">
+    <span class="qc-btn qc-whatsapp" role="img" aria-label="WhatsApp">
+      <img src="../assets/whatsapp.png" alt="" />
+    </span>
+
+    <a class="qc-btn qc-mail" href="../index.html#get-started" aria-label="Email us">
+      <svg viewBox="0 0 52 40" aria-hidden="true">
+        <path fill="#4285f4" d="M3.6 40h8.8V18.9L0 9.5v26.9C0 38 1.6 40 3.6 40z"/>
+        <path fill="#34a853" d="M39.6 40h8.8c2 0 3.6-2 3.6-3.6V9.5l-12.4 9.4V40z"/>
+        <path fill="#fbbc04" d="M39.6 3.6v15.3L52 9.5v-4c0-3.7-4.2-5.8-7.2-3.6l-5.2 3.7z"/>
+        <path fill="#ea4335" d="M12.4 18.9V3.6L26 13.8 39.6 3.6v15.3L26 29.1z"/>
+        <path fill="#c5221f" d="M0 5.5v4l12.4 9.4V3.6L7.2 1.9C4.2-.3 0 1.8 0 5.5z"/>
+      </svg>
+    </a>
+  </div>
+
+  <script src="../app.js"></script>
+</body>
+</html>
