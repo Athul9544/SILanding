@@ -25,7 +25,9 @@ python -m http.server 8000
 | `app.js` | Scroll reveal, the pinned About section, and enquiry modal behaviour |
 | `capabilities/*.html` | One detail page per capability, linked from the cards |
 | `vercel.json` | Git deployment switch (see Deployments) |
-| `assets/logo.png` | Brand mark, transparent |
+| `favicon.ico` | Tab icon, 16/32/48/64 generated from `assets/logo.png` |
+| `apple-touch-icon.png` | 180px home-screen icon, flattened on white |
+| `assets/logo.png` | Brand mark, transparent — the source for both icons |
 | `assets/interior.jpg` | Hero artwork |
 | `assets/einstein.png` | Mascot, cut out with an alpha channel |
 
