@@ -1558,6 +1558,13 @@ h1 em {
   stroke-width: 2;
 }
 
+/* A three-image flow has to fit two landscape shots plus the plan on one
+   line, which the two-image height overflows at every width. Measured
+   against the available width, ~21vw is the tallest that still fits. */
+@media (min-width: 761px) {
+  .flow.is-triple .flow-item img { height: clamp(150px, 21vw, 350px); }
+}
+
 @media (max-width: 760px) {
   /* stack the flow and turn the operators to point downwards */
   .flow { flex-direction: column; }
